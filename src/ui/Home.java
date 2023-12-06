@@ -48,7 +48,7 @@ public class Home extends javax.swing.JFrame {
         cart_table.setBackground(lapis);
         TableColumnModel tcm = cart_table.getColumnModel();
         tcm.getColumn(0).setPreferredWidth(490);
-        tcm.getColumn(0).setMaxWidth(490);
+        tcm.getColumn(0).setMaxWidth(1080);
         tcm.getColumn(0).setMinWidth(490);
         tcm.getColumn(1).setPreferredWidth(60);
         tcm.getColumn(1).setMaxWidth(60);
@@ -73,14 +73,14 @@ public class Home extends javax.swing.JFrame {
         inventory_table.setBackground(lapis);
         TableColumnModel tcm2 = inventory_table.getColumnModel();
         tcm2.getColumn(0).setPreferredWidth(490);
-        tcm2.getColumn(0).setMaxWidth(490);
+        tcm2.getColumn(0).setMaxWidth(1080);
         tcm2.getColumn(0).setMinWidth(490);
         tcm2.getColumn(1).setPreferredWidth(60);
-        tcm2.getColumn(1).setMaxWidth(490);
+        tcm2.getColumn(1).setMaxWidth(200);
         tcm2.getColumn(2).setPreferredWidth(100);
-        tcm2.getColumn(2).setMaxWidth(490);
+        tcm2.getColumn(2).setMaxWidth(200);
         tcm2.getColumn(3).setPreferredWidth(100);
-        tcm2.getColumn(3).setMaxWidth(1080);
+        tcm2.getColumn(3).setMaxWidth(100);
         // termino config tabla inventario
         cl = (CardLayout) card_panel.getLayout();
     }
@@ -122,8 +122,7 @@ public class Home extends javax.swing.JFrame {
         boton_actualizar = new javax.swing.JLabel();
         boton_guardar = new javax.swing.JLabel();
         boton_eliminar = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        inventory_table = new javax.swing.JTable();
+        separator2 = new javax.swing.JSeparator();
         nombre_tf = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -133,6 +132,8 @@ public class Home extends javax.swing.JFrame {
         cantidad_tf = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         precio_tf = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        inventory_table = new javax.swing.JTable();
         user_card = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -158,6 +159,7 @@ public class Home extends javax.swing.JFrame {
         start_button.setForeground(new java.awt.Color(204, 204, 204));
         start_button.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         start_button.setText("Inicio");
+        start_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         start_button.setOpaque(true);
         start_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -176,6 +178,7 @@ public class Home extends javax.swing.JFrame {
         pos_button.setForeground(new java.awt.Color(204, 204, 204));
         pos_button.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pos_button.setText("P.O.S.");
+        pos_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         pos_button.setOpaque(true);
         pos_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -194,6 +197,7 @@ public class Home extends javax.swing.JFrame {
         user_button.setForeground(new java.awt.Color(204, 204, 204));
         user_button.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         user_button.setText("Usuarios");
+        user_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         user_button.setOpaque(true);
         user_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -212,6 +216,7 @@ public class Home extends javax.swing.JFrame {
         inventory_button.setForeground(new java.awt.Color(204, 204, 204));
         inventory_button.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         inventory_button.setText("Inventario");
+        inventory_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         inventory_button.setOpaque(true);
         inventory_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -230,6 +235,7 @@ public class Home extends javax.swing.JFrame {
         back_button.setForeground(new java.awt.Color(204, 204, 204));
         back_button.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         back_button.setText("Volver");
+        back_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         back_button.setOpaque(true);
         back_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -292,7 +298,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(home_cardLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addContainerGap(1128, Short.MAX_VALUE))
+                .addContainerGap(1130, Short.MAX_VALUE))
         );
         home_cardLayout.setVerticalGroup(
             home_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,20 +392,17 @@ public class Home extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pos_cardLayout.createSequentialGroup()
-                        .addComponent(title_label)
+                        .addComponent(title_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(225, 225, 225)
-                        .addComponent(title_label2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(title_label1))
+                        .addComponent(title_label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(247, 247, 247)
+                        .addComponent(title_label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(title_label3)
+                    .addComponent(separator1)
                     .addGroup(pos_cardLayout.createSequentialGroup()
-                        .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(title_label3)
-                            .addComponent(separator1, javax.swing.GroupLayout.PREFERRED_SIZE, 1240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pos_cardLayout.createSequentialGroup()
-                                .addComponent(search_bar_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(search_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(search_bar_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(search_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pos_cardLayout.createSequentialGroup()
                         .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pos_cardLayout.createSequentialGroup()
@@ -512,25 +515,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        inventory_table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Nombre", "ID_Proveedor", "Cantidad", "Precio"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        inventory_table.setOpaque(false);
-        inventory_table.setShowGrid(false);
-        jScrollPane2.setViewportView(inventory_table);
+        separator2.setBackground(new java.awt.Color(5, 92, 157));
 
         nombre_tf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         nombre_tf.setForeground(new java.awt.Color(51, 51, 51));
@@ -572,6 +557,26 @@ public class Home extends javax.swing.JFrame {
         precio_tf.setForeground(new java.awt.Color(51, 51, 51));
         precio_tf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+        inventory_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "ID_Proveedor", "Cantidad", "Precio"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        inventory_table.setOpaque(false);
+        inventory_table.setShowGrid(false);
+        jScrollPane2.setViewportView(inventory_table);
+
         javax.swing.GroupLayout inventory_cardLayout = new javax.swing.GroupLayout(inventory_card);
         inventory_card.setLayout(inventory_cardLayout);
         inventory_cardLayout.setHorizontalGroup(
@@ -580,13 +585,16 @@ public class Home extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(inventory_cardLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
+                        .addComponent(separator2)
+                        .addGap(16, 16, 16))
+                    .addGroup(inventory_cardLayout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(524, 524, 524)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(50, 50, 50)
-                        .addComponent(jLabel6)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(50, 50, 50)
-                        .addComponent(jLabel5)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(193, 193, 193))
                     .addGroup(inventory_cardLayout.createSequentialGroup()
                         .addComponent(jScrollPane2)
@@ -603,18 +611,18 @@ public class Home extends javax.swing.JFrame {
                                         .addGap(1, 1, 1)))
                                 .addGap(50, 50, 50)
                                 .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(id_proveedor_tf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                                    .addComponent(id_proveedor_tf, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(50, 50, 50)
                                 .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cantidad_tf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                                    .addComponent(cantidad_tf, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(50, 50, 50)
                                 .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(precio_tf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))
+                                    .addComponent(precio_tf, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(inventory_cardLayout.createSequentialGroup()
-                                .addComponent(combob_buscar, 0, 350, Short.MAX_VALUE)
+                                .addComponent(combob_buscar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(boton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(285, 285, 285)
@@ -628,11 +636,14 @@ public class Home extends javax.swing.JFrame {
         inventory_cardLayout.setVerticalGroup(
             inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(inventory_cardLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
                 .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(jLabel6)
                     .addComponent(jLabel5))
+                .addGap(8, 8, 8)
+                .addComponent(separator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(combob_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -640,7 +651,7 @@ public class Home extends javax.swing.JFrame {
                     .addComponent(boton_guardar)
                     .addComponent(boton_eliminar)
                     .addComponent(boton_buscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -664,18 +675,18 @@ public class Home extends javax.swing.JFrame {
                             .addComponent(precio_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         card_panel.add(inventory_card, "card3");
 
-        user_card.setBackground(new java.awt.Color(204, 102, 0));
+        user_card.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout user_cardLayout = new javax.swing.GroupLayout(user_card);
         user_card.setLayout(user_cardLayout);
         user_cardLayout.setHorizontalGroup(
             user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1272, Short.MAX_VALUE)
+            .addGap(0, 1274, Short.MAX_VALUE)
         );
         user_cardLayout.setVerticalGroup(
             user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -904,6 +915,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField search_bar_tf;
     private javax.swing.JLabel search_button;
     private javax.swing.JSeparator separator1;
+    private javax.swing.JSeparator separator2;
     private javax.swing.JLabel start_button;
     private javax.swing.JLabel title_label;
     private javax.swing.JLabel title_label1;
