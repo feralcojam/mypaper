@@ -22,14 +22,20 @@ public class Home extends javax.swing.JFrame {
     public Home() {
         initComponents();
         search_bar_tf.setOpaque(false);
-        // config tabla
-        jScrollPane1.getViewport().setBackground(celestial);
-        cart_table.setFillsViewportHeight(true);
-        cart_table.setUI(new BasicTableUI());
+        nombre_tf.setOpaque(false);
+        id_proveedor_tf.setOpaque(false);
+        cantidad_tf.setOpaque(false);
+        precio_tf.setOpaque(false);
+        // objetos para personalizar tabla
         DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
         dtcr.setHorizontalAlignment(SwingConstants.CENTER);
         dtcr.setBackground(aero);
         dtcr.setForeground(Color.white);
+        // termin objetos para personalizar tabla
+        // config tabla pos
+        jScrollPane1.getViewport().setBackground(celestial);
+        cart_table.setFillsViewportHeight(true);
+        cart_table.setUI(new BasicTableUI());
         cart_table.getTableHeader().getColumnModel().getColumn(0).
                 setHeaderRenderer(dtcr);
         cart_table.getTableHeader().getColumnModel().getColumn(1).
@@ -48,7 +54,34 @@ public class Home extends javax.swing.JFrame {
         tcm.getColumn(1).setMaxWidth(60);
         tcm.getColumn(2).setPreferredWidth(100);
         tcm.getColumn(2).setMaxWidth(100);
-        // termino config tabla
+        // termino config tabla pos
+        // config tabla inventario
+        jScrollPane2.getViewport().setBackground(celestial);
+        inventory_table.setFillsViewportHeight(true);
+        inventory_table.setUI(new BasicTableUI());
+        inventory_table.getTableHeader().getColumnModel().getColumn(0).
+                setHeaderRenderer(dtcr);
+        inventory_table.getTableHeader().getColumnModel().getColumn(1).
+                setHeaderRenderer(dtcr);
+        inventory_table.getTableHeader().getColumnModel().getColumn(2).
+                setHeaderRenderer(dtcr);
+         inventory_table.getTableHeader().getColumnModel().getColumn(3).
+                setHeaderRenderer(dtcr);
+        inventory_table.setRowHeight(25);
+        inventory_table.setFont(new Font("SansSerif",Font.PLAIN,18));
+        inventory_table.setForeground(gray);
+        inventory_table.setBackground(lapis);
+        TableColumnModel tcm2 = inventory_table.getColumnModel();
+        tcm2.getColumn(0).setPreferredWidth(490);
+        tcm2.getColumn(0).setMaxWidth(490);
+        tcm2.getColumn(0).setMinWidth(490);
+        tcm2.getColumn(1).setPreferredWidth(60);
+        tcm2.getColumn(1).setMaxWidth(490);
+        tcm2.getColumn(2).setPreferredWidth(100);
+        tcm2.getColumn(2).setMaxWidth(490);
+        tcm2.getColumn(3).setPreferredWidth(100);
+        tcm2.getColumn(3).setMaxWidth(1080);
+        // termino config tabla inventario
         cl = (CardLayout) card_panel.getLayout();
     }
     
@@ -61,11 +94,9 @@ public class Home extends javax.swing.JFrame {
         logo_image = new javax.swing.JLabel();
         start_button = new javax.swing.JLabel();
         pos_button = new javax.swing.JLabel();
-        catalogue_button = new javax.swing.JLabel();
         user_button = new javax.swing.JLabel();
         inventory_button = new javax.swing.JLabel();
-        customer_button = new javax.swing.JLabel();
-        provider_button = new javax.swing.JLabel();
+        back_button = new javax.swing.JLabel();
         card_panel = new javax.swing.JPanel();
         home_card = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -81,11 +112,28 @@ public class Home extends javax.swing.JFrame {
         title_label3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         cart_table = new javax.swing.JTable();
-        catalogue_card = new javax.swing.JPanel();
-        user_card = new javax.swing.JPanel();
         inventory_card = new javax.swing.JPanel();
-        customer_card = new javax.swing.JPanel();
-        provider_card = new javax.swing.JPanel();
+        combob_buscar = new javax.swing.JComboBox<>();
+        boton_buscar = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        boton_actualizar = new javax.swing.JLabel();
+        boton_guardar = new javax.swing.JLabel();
+        boton_eliminar = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        inventory_table = new javax.swing.JTable();
+        nombre_tf = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        id_proveedor_tf = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        cantidad_tf = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        precio_tf = new javax.swing.JTextField();
+        user_card = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -141,24 +189,6 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        catalogue_button.setBackground(new java.awt.Color(45, 104, 196));
-        catalogue_button.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        catalogue_button.setForeground(new java.awt.Color(204, 204, 204));
-        catalogue_button.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        catalogue_button.setText("Catálogo");
-        catalogue_button.setOpaque(true);
-        catalogue_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                catalogue_buttonMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                catalogue_buttonMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                catalogue_buttonMouseExited(evt);
-            }
-        });
-
         user_button.setBackground(new java.awt.Color(45, 104, 196));
         user_button.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         user_button.setForeground(new java.awt.Color(204, 204, 204));
@@ -195,39 +225,21 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        customer_button.setBackground(new java.awt.Color(45, 104, 196));
-        customer_button.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        customer_button.setForeground(new java.awt.Color(204, 204, 204));
-        customer_button.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        customer_button.setText("Clientes");
-        customer_button.setOpaque(true);
-        customer_button.addMouseListener(new java.awt.event.MouseAdapter() {
+        back_button.setBackground(new java.awt.Color(45, 104, 196));
+        back_button.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        back_button.setForeground(new java.awt.Color(204, 204, 204));
+        back_button.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        back_button.setText("Volver");
+        back_button.setOpaque(true);
+        back_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                customer_buttonMouseClicked(evt);
+                back_buttonMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                customer_buttonMouseEntered(evt);
+                back_buttonMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                customer_buttonMouseExited(evt);
-            }
-        });
-
-        provider_button.setBackground(new java.awt.Color(45, 104, 196));
-        provider_button.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        provider_button.setForeground(new java.awt.Color(204, 204, 204));
-        provider_button.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        provider_button.setText("Proveedores");
-        provider_button.setOpaque(true);
-        provider_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                provider_buttonMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                provider_buttonMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                provider_buttonMouseExited(evt);
+                back_buttonMouseExited(evt);
             }
         });
 
@@ -241,11 +253,9 @@ public class Home extends javax.swing.JFrame {
                 .addGap(12, 12, 12))
             .addComponent(start_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pos_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(catalogue_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(user_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(inventory_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(customer_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(provider_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(back_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         left_panelLayout.setVerticalGroup(
             left_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -257,16 +267,12 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pos_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(catalogue_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(inventory_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addComponent(user_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(inventory_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(customer_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(provider_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(391, Short.MAX_VALUE))
+                .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(465, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(left_panel);
@@ -430,20 +436,238 @@ public class Home extends javax.swing.JFrame {
 
         card_panel.add(pos_card, "card2");
 
-        catalogue_card.setBackground(new java.awt.Color(0, 102, 0));
+        inventory_card.setBackground(new java.awt.Color(255, 255, 255));
 
-        javax.swing.GroupLayout catalogue_cardLayout = new javax.swing.GroupLayout(catalogue_card);
-        catalogue_card.setLayout(catalogue_cardLayout);
-        catalogue_cardLayout.setHorizontalGroup(
-            catalogue_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1272, Short.MAX_VALUE)
+        combob_buscar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
+        boton_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_len.png"))); // NOI18N
+        boton_buscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        boton_buscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_buscarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton_buscarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton_buscarMouseExited(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel3.setText("Inventario");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel4.setText("Guardar");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel6.setText("Actualizar");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel5.setText("Eliminar");
+
+        boton_actualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_len.png"))); // NOI18N
+        boton_actualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        boton_actualizar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_actualizarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton_actualizarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton_actualizarMouseExited(evt);
+            }
+        });
+
+        boton_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_len.png"))); // NOI18N
+        boton_guardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        boton_guardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_guardarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton_guardarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton_guardarMouseExited(evt);
+            }
+        });
+
+        boton_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_len.png"))); // NOI18N
+        boton_eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        boton_eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_eliminarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton_eliminarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton_eliminarMouseExited(evt);
+            }
+        });
+
+        inventory_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Nombre", "ID_Proveedor", "Cantidad", "Precio"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        inventory_table.setOpaque(false);
+        inventory_table.setShowGrid(false);
+        jScrollPane2.setViewportView(inventory_table);
+
+        nombre_tf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        nombre_tf.setForeground(new java.awt.Color(51, 51, 51));
+        nombre_tf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel7.setText("Datos de producto");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Nombre");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("ID_Proveedor");
+
+        id_proveedor_tf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        id_proveedor_tf.setForeground(new java.awt.Color(51, 51, 51));
+        id_proveedor_tf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Cantidad");
+
+        cantidad_tf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        cantidad_tf.setForeground(new java.awt.Color(51, 51, 51));
+        cantidad_tf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Precio");
+
+        precio_tf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        precio_tf.setForeground(new java.awt.Color(51, 51, 51));
+        precio_tf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout inventory_cardLayout = new javax.swing.GroupLayout(inventory_card);
+        inventory_card.setLayout(inventory_cardLayout);
+        inventory_cardLayout.setHorizontalGroup(
+            inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(inventory_cardLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(inventory_cardLayout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel6)
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel5)
+                        .addGap(193, 193, 193))
+                    .addGroup(inventory_cardLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addGap(176, 176, 176))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inventory_cardLayout.createSequentialGroup()
+                        .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(inventory_cardLayout.createSequentialGroup()
+                                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, inventory_cardLayout.createSequentialGroup()
+                                        .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(nombre_tf, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(1, 1, 1)))
+                                .addGap(50, 50, 50)
+                                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(id_proveedor_tf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                                .addGap(50, 50, 50)
+                                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cantidad_tf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE))
+                                .addGap(50, 50, 50)
+                                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(precio_tf, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)))
+                            .addGroup(inventory_cardLayout.createSequentialGroup()
+                                .addComponent(combob_buscar, 0, 350, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(boton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(285, 285, 285)
+                                .addComponent(boton_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(111, 111, 111)
+                                .addComponent(boton_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(119, 119, 119)
+                                .addComponent(boton_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(225, 225, 225))))
         );
-        catalogue_cardLayout.setVerticalGroup(
-            catalogue_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
+        inventory_cardLayout.setVerticalGroup(
+            inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(inventory_cardLayout.createSequentialGroup()
+                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(combob_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boton_actualizar)
+                    .addComponent(boton_guardar)
+                    .addComponent(boton_eliminar)
+                    .addComponent(boton_buscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(inventory_cardLayout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nombre_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(inventory_cardLayout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(id_proveedor_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(inventory_cardLayout.createSequentialGroup()
+                            .addComponent(jLabel10)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cantidad_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(inventory_cardLayout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(precio_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
-        card_panel.add(catalogue_card, "card3");
+        card_panel.add(inventory_card, "card3");
 
         user_card.setBackground(new java.awt.Color(204, 102, 0));
 
@@ -459,51 +683,6 @@ public class Home extends javax.swing.JFrame {
         );
 
         card_panel.add(user_card, "card4");
-
-        inventory_card.setBackground(new java.awt.Color(0, 153, 153));
-
-        javax.swing.GroupLayout inventory_cardLayout = new javax.swing.GroupLayout(inventory_card);
-        inventory_card.setLayout(inventory_cardLayout);
-        inventory_cardLayout.setHorizontalGroup(
-            inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1272, Short.MAX_VALUE)
-        );
-        inventory_cardLayout.setVerticalGroup(
-            inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
-        );
-
-        card_panel.add(inventory_card, "card5");
-
-        customer_card.setBackground(new java.awt.Color(255, 0, 153));
-
-        javax.swing.GroupLayout customer_cardLayout = new javax.swing.GroupLayout(customer_card);
-        customer_card.setLayout(customer_cardLayout);
-        customer_cardLayout.setHorizontalGroup(
-            customer_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1272, Short.MAX_VALUE)
-        );
-        customer_cardLayout.setVerticalGroup(
-            customer_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
-        );
-
-        card_panel.add(customer_card, "card6");
-
-        provider_card.setBackground(new java.awt.Color(153, 0, 153));
-
-        javax.swing.GroupLayout provider_cardLayout = new javax.swing.GroupLayout(provider_card);
-        provider_card.setLayout(provider_cardLayout);
-        provider_cardLayout.setHorizontalGroup(
-            provider_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1272, Short.MAX_VALUE)
-        );
-        provider_cardLayout.setVerticalGroup(
-            provider_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
-        );
-
-        card_panel.add(provider_card, "card7");
 
         jSplitPane1.setRightComponent(card_panel);
 
@@ -550,20 +729,6 @@ public class Home extends javax.swing.JFrame {
         pos_button.setForeground(gray);
     }//GEN-LAST:event_pos_buttonMouseExited
 
-    private void catalogue_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_catalogue_buttonMouseClicked
-        cl.show(card_panel, "card3");
-    }//GEN-LAST:event_catalogue_buttonMouseClicked
-
-    private void catalogue_buttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_catalogue_buttonMouseEntered
-        catalogue_button.setBackground(true_light_blue);
-        catalogue_button.setForeground(Color.white);
-    }//GEN-LAST:event_catalogue_buttonMouseEntered
-
-    private void catalogue_buttonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_catalogue_buttonMouseExited
-        catalogue_button.setBackground(true_blue);
-        catalogue_button.setForeground(gray);
-    }//GEN-LAST:event_catalogue_buttonMouseExited
-
     private void user_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user_buttonMouseClicked
         cl.show(card_panel, "card4");
     }//GEN-LAST:event_user_buttonMouseClicked
@@ -579,7 +744,7 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_user_buttonMouseExited
 
     private void inventory_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inventory_buttonMouseClicked
-        cl.show(card_panel, "card5");
+        cl.show(card_panel, "card3");
     }//GEN-LAST:event_inventory_buttonMouseClicked
 
     private void inventory_buttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_inventory_buttonMouseEntered
@@ -592,33 +757,21 @@ public class Home extends javax.swing.JFrame {
         inventory_button.setForeground(gray);
     }//GEN-LAST:event_inventory_buttonMouseExited
 
-    private void customer_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customer_buttonMouseClicked
-        cl.show(card_panel, "card6");
-    }//GEN-LAST:event_customer_buttonMouseClicked
+    private void back_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseClicked
+        Login l = new Login();
+        l.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_back_buttonMouseClicked
 
-    private void customer_buttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customer_buttonMouseEntered
-        customer_button.setBackground(true_light_blue);
-        customer_button.setForeground(Color.white);
-    }//GEN-LAST:event_customer_buttonMouseEntered
+    private void back_buttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseEntered
+        back_button.setBackground(true_light_blue);
+        back_button.setForeground(Color.white);
+    }//GEN-LAST:event_back_buttonMouseEntered
 
-    private void customer_buttonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customer_buttonMouseExited
-        customer_button.setBackground(true_blue);
-        customer_button.setForeground(gray);
-    }//GEN-LAST:event_customer_buttonMouseExited
-
-    private void provider_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_provider_buttonMouseClicked
-        cl.show(card_panel, "card7");
-    }//GEN-LAST:event_provider_buttonMouseClicked
-
-    private void provider_buttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_provider_buttonMouseEntered
-        provider_button.setBackground(true_light_blue);
-        provider_button.setForeground(Color.white);
-    }//GEN-LAST:event_provider_buttonMouseEntered
-
-    private void provider_buttonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_provider_buttonMouseExited
-        provider_button.setBackground(true_blue);
-        provider_button.setForeground(gray);
-    }//GEN-LAST:event_provider_buttonMouseExited
+    private void back_buttonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_back_buttonMouseExited
+        back_button.setBackground(true_blue);
+        back_button.setForeground(gray);
+    }//GEN-LAST:event_back_buttonMouseExited
 
     private void logo_imageMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logo_imageMouseEntered
         ImageIcon logo_change = new ImageIcon(
@@ -664,26 +817,88 @@ public class Home extends javax.swing.JFrame {
         qty_add.setIcon(qty_png);
     }//GEN-LAST:event_qty_addMouseExited
 
+    private void boton_buscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_buscarMouseClicked
+        // funcion boton buscar
+    }//GEN-LAST:event_boton_buscarMouseClicked
 
+    private void boton_buscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_buscarMouseEntered
+
+    }//GEN-LAST:event_boton_buscarMouseEntered
+
+    private void boton_buscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_buscarMouseExited
+
+    }//GEN-LAST:event_boton_buscarMouseExited
+
+    private void boton_actualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_actualizarMouseClicked
+        // funcion boton actualizar
+    }//GEN-LAST:event_boton_actualizarMouseClicked
+
+    private void boton_actualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_actualizarMouseEntered
+
+    }//GEN-LAST:event_boton_actualizarMouseEntered
+
+    private void boton_actualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_actualizarMouseExited
+
+    }//GEN-LAST:event_boton_actualizarMouseExited
+
+    private void boton_guardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_guardarMouseClicked
+        // funcion boton guardar
+    }//GEN-LAST:event_boton_guardarMouseClicked
+
+    private void boton_guardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_guardarMouseEntered
+
+    }//GEN-LAST:event_boton_guardarMouseEntered
+
+    private void boton_guardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_guardarMouseExited
+
+    }//GEN-LAST:event_boton_guardarMouseExited
+
+    private void boton_eliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_eliminarMouseClicked
+        // funcion boton eliminar
+    }//GEN-LAST:event_boton_eliminarMouseClicked
+
+    private void boton_eliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_eliminarMouseEntered
+
+    }//GEN-LAST:event_boton_eliminarMouseEntered
+
+    private void boton_eliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_eliminarMouseExited
+
+    }//GEN-LAST:event_boton_eliminarMouseExited
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel back_button;
+    private javax.swing.JLabel boton_actualizar;
+    private javax.swing.JLabel boton_buscar;
+    private javax.swing.JLabel boton_eliminar;
+    private javax.swing.JLabel boton_guardar;
+    private javax.swing.JTextField cantidad_tf;
     private javax.swing.JPanel card_panel;
     private javax.swing.JTable cart_table;
-    private javax.swing.JLabel catalogue_button;
-    private javax.swing.JPanel catalogue_card;
-    private javax.swing.JLabel customer_button;
-    private javax.swing.JPanel customer_card;
+    private javax.swing.JComboBox<String> combob_buscar;
     private javax.swing.JPanel home_card;
+    private javax.swing.JTextField id_proveedor_tf;
     private javax.swing.JLabel inventory_button;
     private javax.swing.JPanel inventory_card;
+    private javax.swing.JTable inventory_table;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel left_panel;
     private javax.swing.JLabel logo_image;
+    private javax.swing.JTextField nombre_tf;
     private javax.swing.JLabel pos_button;
     private javax.swing.JPanel pos_card;
-    private javax.swing.JLabel provider_button;
-    private javax.swing.JPanel provider_card;
+    private javax.swing.JTextField precio_tf;
     private javax.swing.JLabel qty_add;
     private javax.swing.JTextField qty_bar;
     private javax.swing.JTextField search_bar_tf;
