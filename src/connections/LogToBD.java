@@ -15,7 +15,7 @@ public class LogToBD {
     public LoginData login(String user, String pass) {
         LoginData ld = new LoginData();
         String query = 
-                "select * from usuario where nombre = ? and contrasenia = ?";
+                "select * from USUARIO where NOMBRE = ? and CONTRASEÑA = ?";
         try {
             con = cn.getConnection();
             ps = con.prepareStatement(query);
@@ -23,8 +23,8 @@ public class LogToBD {
             ps.setString(2, pass);
             rs = ps.executeQuery();
             if (rs.next()) {
-                ld.setUsername(rs.getString("nombre"));
-                ld.setPassword(rs.getString("contrasenia"));
+                ld.setUsername(rs.getString("NOMBRE"));
+                ld.setPassword(rs.getString("CONTRASEÑA"));
             } else {
                 System.out.println("usuario o contraseña incorrectos");
             }
