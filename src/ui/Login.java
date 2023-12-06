@@ -1,8 +1,10 @@
 package ui;
 
+import connections.Connect;
 import connections.LogToBD;
 import connections.LoginData;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 public class Login extends javax.swing.JFrame {
@@ -21,12 +23,18 @@ public class Login extends javax.swing.JFrame {
         String user = user_tf.getText();
         String pass = String.valueOf(user_pf.getPassword());
         if(!"".equals(user) || !"".equals(pass)) {
-            lgd = ltbd.login(user, pass);
-            if(lgd.getUsername() != null && lgd.getPassword() != null) {
-                Home h = new Home();
-                h.setVisible(true);
-                dispose();
+            Connect bd = new Connect ();
+            boolean bandera_usuario = bd.Inicio_Sesion(user, pass);
+            if (bandera_usuario == true){
+                JOptionPane.showMessageDialog(rootPane, "Usuario encontrado");
+                Home home = new Home ();
+                home.setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Credenciales incorrectas");
             }
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Ingresa todos los datos");
         }
     }
     

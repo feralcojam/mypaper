@@ -1,24 +1,30 @@
 package ui;
 
+import connections.Connect;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.util.Vector;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.basic.BasicTableUI;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 public class Home extends javax.swing.JFrame {
-    
+
     CardLayout cl;
-    Color true_blue = new Color(45,104,196);
-    Color true_light_blue = new Color(65,144,206);
-    Color celestial = new Color(73,151,208);
-    Color aero = new Color(0,185,232);
-    Color lapis = new Color(5,92,157);
-    Color gray = new Color(224,224,224);
-    
+    Color true_blue = new Color(45, 104, 196);
+    Color true_light_blue = new Color(65, 144, 206);
+    Color celestial = new Color(73, 151, 208);
+    Color aero = new Color(0, 185, 232);
+    Color lapis = new Color(5, 92, 157);
+    Color gray = new Color(224, 224, 224);
+
     public Home() {
         initComponents();
         search_bar_tf.setOpaque(false);
@@ -26,6 +32,10 @@ public class Home extends javax.swing.JFrame {
         id_proveedor_tf.setOpaque(false);
         cantidad_tf.setOpaque(false);
         precio_tf.setOpaque(false);
+        rellenar_combobox();
+        rellenar_combobox_inventario();
+        ///////////////////
+        /////////////////////////
         // objetos para personalizar tabla
         DefaultTableCellRenderer dtcr = new DefaultTableCellRenderer();
         dtcr.setHorizontalAlignment(SwingConstants.CENTER);
@@ -43,7 +53,7 @@ public class Home extends javax.swing.JFrame {
         cart_table.getTableHeader().getColumnModel().getColumn(2).
                 setHeaderRenderer(dtcr);
         cart_table.setRowHeight(25);
-        cart_table.setFont(new Font("SansSerif",Font.PLAIN,18));
+        cart_table.setFont(new Font("SansSerif", Font.PLAIN, 18));
         cart_table.setForeground(gray);
         cart_table.setBackground(lapis);
         TableColumnModel tcm = cart_table.getColumnModel();
@@ -65,10 +75,10 @@ public class Home extends javax.swing.JFrame {
                 setHeaderRenderer(dtcr);
         inventory_table.getTableHeader().getColumnModel().getColumn(2).
                 setHeaderRenderer(dtcr);
-         inventory_table.getTableHeader().getColumnModel().getColumn(3).
+        inventory_table.getTableHeader().getColumnModel().getColumn(3).
                 setHeaderRenderer(dtcr);
         inventory_table.setRowHeight(25);
-        inventory_table.setFont(new Font("SansSerif",Font.PLAIN,18));
+        inventory_table.setFont(new Font("SansSerif", Font.PLAIN, 18));
         inventory_table.setForeground(gray);
         inventory_table.setBackground(lapis);
         TableColumnModel tcm2 = inventory_table.getColumnModel();
@@ -92,10 +102,10 @@ public class Home extends javax.swing.JFrame {
                 setHeaderRenderer(dtcr);
         user_table.getTableHeader().getColumnModel().getColumn(2).
                 setHeaderRenderer(dtcr);
-         user_table.getTableHeader().getColumnModel().getColumn(3).
+        user_table.getTableHeader().getColumnModel().getColumn(3).
                 setHeaderRenderer(dtcr);
         user_table.setRowHeight(25);
-        user_table.setFont(new Font("SansSerif",Font.PLAIN,18));
+        user_table.setFont(new Font("SansSerif", Font.PLAIN, 18));
         user_table.setForeground(gray);
         user_table.setBackground(lapis);
         TableColumnModel tcm3 = user_table.getColumnModel();
@@ -110,6 +120,111 @@ public class Home extends javax.swing.JFrame {
         tcm3.getColumn(3).setMaxWidth(60);
         // termino config tabla usuarios
         cl = (CardLayout) card_panel.getLayout();
+
+        ajustar_modelo_general();
+        ajustar_modelo_general_inventario();
+
+        user_table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                if (!event.getValueIsAdjusting()) {
+                    int selectedRow = user_table.getSelectedRow();
+                    if (selectedRow != -1) {
+                        jLabel7.setIcon(null);
+                        Object value1 = user_table.getValueAt(selectedRow, 0);
+                        Object value2 = user_table.getValueAt(selectedRow, 1);
+                        nombre_tf1.setText(value1.toString());
+                        contraseña_tf2.setText(value2.toString());
+                    }
+                }
+            }
+        });
+        
+        inventory_table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent event) {
+                if (!event.getValueIsAdjusting()) {
+                    int selectedRow = inventory_table.getSelectedRow();
+                    if (selectedRow != -1) {
+                        jLabel7.setIcon(null);
+                        Object value1 = inventory_table.getValueAt(selectedRow, 0);
+                        Object value2 = inventory_table.getValueAt(selectedRow, 1);
+                        Object value3 = inventory_table.getValueAt(selectedRow, 2);
+                        Object value4 = inventory_table.getValueAt(selectedRow, 3);
+                        nombre_tf.setText(value1.toString());
+                        id_proveedor_tf.setText(value2.toString());
+                        cantidad_tf.setText(value3.toString());
+                        precio_tf.setText(value4.toString());
+                    }
+                }
+            }
+        });
+    }
+
+    public void rellenar_combobox() {
+        Connect bd = new Connect();
+        Vector<String> Nombres = new Vector<String>();
+        Nombres = bd.Nombre_usuarios();
+        for (String elemento : Nombres) {
+            combob_buscar1.addItem(elemento);
+        }
+    }
+
+    public void rellenar_combobox_inventario() {
+        Connect bd = new Connect();
+        Vector<String> Nombres = new Vector<String>();
+        Nombres = bd.Nombre_producto();
+        for (String elemento : Nombres) {
+            combob_buscar.addItem(elemento);
+        }
+    }
+    
+    public void ajustar_modelo(String nombre) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.setColumnCount(0);
+        modelo.setNumRows(0);
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Contraseña");
+        Connect bd = new Connect();
+        modelo = bd.Info_usuario(nombre, modelo);
+        user_table.setModel(modelo);
+    }
+    
+    public void ajustar_modelo_inventario(String nombre) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.setColumnCount(0);
+        modelo.setNumRows(0);
+        modelo.addColumn("Nombre");
+        modelo.addColumn("ID_PROVEEDOR");
+        modelo.addColumn("CANTIDAD");
+        modelo.addColumn("PRECIO");
+        Connect bd = new Connect();
+        modelo = bd.Info_inventario(nombre, modelo);
+        inventory_table.setModel(modelo);
+    }
+
+    public void ajustar_modelo_general() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.setColumnCount(0);
+        modelo.setNumRows(0);
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Contraseña");
+        Connect bd = new Connect();
+        modelo = bd.Info_todos_usuarios(modelo);
+        user_table.setModel(modelo);
+    }
+
+    public void ajustar_modelo_general_inventario() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.setColumnCount(0);
+        modelo.setNumRows(0);
+        modelo.addColumn("Nombre");
+        modelo.addColumn("ID_PROVEEDOR");
+        modelo.addColumn("CANTIDAD");
+        modelo.addColumn("PRECIO");
+        Connect bd = new Connect();
+        modelo = bd.Info_todos_inventario(modelo);
+        inventory_table.setModel(modelo);
     }
     
     @SuppressWarnings("unchecked")
@@ -339,6 +454,8 @@ public class Home extends javax.swing.JFrame {
         card_panel.setLayout(new java.awt.CardLayout());
 
         home_card.setBackground(new java.awt.Color(255, 255, 255));
+        home_card.setToolTipText("");
+        home_card.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(5, 92, 157));
@@ -841,6 +958,11 @@ public class Home extends javax.swing.JFrame {
         user_card.setBackground(new java.awt.Color(255, 255, 255));
 
         combob_buscar1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        combob_buscar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combob_buscar1ActionPerformed(evt);
+            }
+        });
 
         boton_buscar_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_len.png"))); // NOI18N
         boton_buscar_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1177,6 +1299,13 @@ public class Home extends javax.swing.JFrame {
 
     private void boton_buscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_buscarMouseClicked
         // funcion boton buscar
+        try {
+            String nombre = combob_buscar.getSelectedItem().toString();
+            ajustar_modelo_inventario(nombre);
+        } catch (Exception e) {
+            System.out.println("error ");
+        }
+        
     }//GEN-LAST:event_boton_buscarMouseClicked
 
     private void boton_buscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_buscarMouseEntered
@@ -1209,6 +1338,32 @@ public class Home extends javax.swing.JFrame {
 
     private void boton_guardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_guardarMouseClicked
         // funcion boton guardar
+        try {
+            Connect bd = new Connect();
+            String nombre = nombre_tf.getText();
+            int id_proveedor = Integer.parseInt(id_proveedor_tf.getText());
+            int cantidad = Integer.parseInt(cantidad_tf.getText());
+            double precio = Double.parseDouble(precio_tf.getText());
+            if (nombre.equals("") || id_proveedor !=0 || id_proveedor <=0 || cantidad <= 0 || precio <= 0) {
+                JOptionPane.showMessageDialog(rootPane, "No dejes datos en blanco");
+            } else {
+                boolean bandera_insertar = bd.Ingresar_Producto(nombre, id_proveedor, cantidad, precio);
+                if (bandera_insertar) {
+                    JOptionPane.showMessageDialog(rootPane, "Producto ingresado correctamente");
+                    nombre_tf.setText("");
+                    id_proveedor_tf.setText("");
+                    cantidad_tf.setText("");
+                    precio_tf.setText("");
+                    ajustar_modelo_general_inventario();
+                    combob_buscar.removeAllItems();
+                    rellenar_combobox_inventario();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "No se pueda ingresar un producto intentelo de nuevo");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Tipo de datos incorrectos en los apartados");
+        }
     }//GEN-LAST:event_boton_guardarMouseClicked
 
     private void boton_guardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_guardarMouseEntered
@@ -1240,7 +1395,13 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_boton_eliminarMouseExited
 
     private void boton_buscar_usuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_buscar_usuarioMouseClicked
-        // hacer un SELECT * FROM USUARIO
+        //Buscar usuario
+        try {
+            String nombre = combob_buscar1.getSelectedItem().toString();
+            ajustar_modelo(nombre);
+        } catch (Exception e) {
+            System.out.println("error ");
+        }
     }//GEN-LAST:event_boton_buscar_usuarioMouseClicked
 
     private void boton_buscar_usuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_buscar_usuarioMouseEntered
@@ -1257,6 +1418,29 @@ public class Home extends javax.swing.JFrame {
 
     private void boton_actualizar_usuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_actualizar_usuarioMouseClicked
         // hacer un UPDATE USUARIO
+        try {
+            Connect bd = new Connect();
+            String nombre = nombre_tf1.getText();
+            String contraseña = contraseña_tf2.getText();
+            if (nombre.equals("") || contraseña.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "No dejes datos en blanco");
+            } else {
+                int id = bd.Buscar_id(nombre);
+                boolean bandera_atualizar = bd.Actualizar_Usuario(nombre, contraseña, id);
+                if (bandera_atualizar) {
+                    JOptionPane.showMessageDialog(rootPane, "Usuario actualizado correctamente");
+                    nombre_tf1.setText("");
+                    contraseña_tf2.setText("");
+                    ajustar_modelo_general();
+                    combob_buscar1.removeAllItems();
+                    rellenar_combobox();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "No se puede actualizar un usuario intentelo de nuevo");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_boton_actualizar_usuarioMouseClicked
 
     private void boton_actualizar_usuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_actualizar_usuarioMouseEntered
@@ -1273,6 +1457,28 @@ public class Home extends javax.swing.JFrame {
 
     private void boton_guardar_usuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_guardar_usuarioMouseClicked
         // hacer un INSERT INTO USUARIO
+        try {
+            Connect bd = new Connect();
+            String nombre = nombre_tf1.getText();
+            String contraseña = contraseña_tf2.getText();
+            if (nombre.equals("") || contraseña.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "No dejes datos en blanco");
+            } else {
+                boolean bandera_insertar = bd.Ingresar_Usuario(nombre, contraseña);
+                if (bandera_insertar) {
+                    JOptionPane.showMessageDialog(rootPane, "Usuario ingresado correctamente");
+                    nombre_tf1.setText("");
+                    contraseña_tf2.setText("");
+                    ajustar_modelo_general();
+                    combob_buscar1.removeAllItems();
+                    rellenar_combobox();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "No se pueda ingresar un usuario intentelo de nuevo");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_boton_guardar_usuarioMouseClicked
 
     private void boton_guardar_usuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_guardar_usuarioMouseEntered
@@ -1289,6 +1495,29 @@ public class Home extends javax.swing.JFrame {
 
     private void boton_eliminar_usuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_eliminar_usuarioMouseClicked
         // hacer un DELETE FROM USUARIO
+        try {
+            Connect bd = new Connect();
+            String nombre = nombre_tf1.getText();
+            String contraseña = contraseña_tf2.getText();
+            if (nombre.equals("") || contraseña.equals("")) {
+                JOptionPane.showMessageDialog(rootPane, "No dejes datos en blanco");
+            } else {
+                int id = bd.Buscar_id(nombre);
+                boolean bandera_eliminar = bd.Eliminar_Usuario(id);
+                if (bandera_eliminar) {
+                    JOptionPane.showMessageDialog(rootPane, "Usuario borrado correctamente");
+                    nombre_tf1.setText("");
+                    contraseña_tf2.setText("");
+                    ajustar_modelo_general();
+                    combob_buscar1.removeAllItems();
+                    rellenar_combobox();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "No se pudo eliminar un usuario intentelo de nuevo");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_boton_eliminar_usuarioMouseClicked
 
     private void boton_eliminar_usuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_eliminar_usuarioMouseEntered
@@ -1302,7 +1531,11 @@ public class Home extends javax.swing.JFrame {
                 getClass().getResource("/icons/delete.png"));
         boton_eliminar_usuario.setIcon(lens_png);
     }//GEN-LAST:event_boton_eliminar_usuarioMouseExited
- 
+
+    private void combob_buscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combob_buscar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combob_buscar1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back_button;
     private javax.swing.JLabel boton_actualizar;
