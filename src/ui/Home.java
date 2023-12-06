@@ -72,16 +72,43 @@ public class Home extends javax.swing.JFrame {
         inventory_table.setForeground(gray);
         inventory_table.setBackground(lapis);
         TableColumnModel tcm2 = inventory_table.getColumnModel();
-        tcm2.getColumn(0).setPreferredWidth(490);
+        tcm2.getColumn(0).setPreferredWidth(300);
         tcm2.getColumn(0).setMaxWidth(1080);
-        tcm2.getColumn(0).setMinWidth(490);
-        tcm2.getColumn(1).setPreferredWidth(60);
+        tcm2.getColumn(0).setMinWidth(300);
+        tcm2.getColumn(1).setPreferredWidth(200);
         tcm2.getColumn(1).setMaxWidth(200);
-        tcm2.getColumn(2).setPreferredWidth(100);
-        tcm2.getColumn(2).setMaxWidth(200);
-        tcm2.getColumn(3).setPreferredWidth(100);
-        tcm2.getColumn(3).setMaxWidth(100);
+        tcm2.getColumn(2).setPreferredWidth(150);
+        tcm2.getColumn(2).setMaxWidth(150);
+        tcm2.getColumn(3).setPreferredWidth(150);
+        tcm2.getColumn(3).setMaxWidth(150);
         // termino config tabla inventario
+        // config tabla usuarios
+        jScrollPane3.getViewport().setBackground(celestial);
+        user_table.setFillsViewportHeight(true);
+        user_table.setUI(new BasicTableUI());
+        user_table.getTableHeader().getColumnModel().getColumn(0).
+                setHeaderRenderer(dtcr);
+        user_table.getTableHeader().getColumnModel().getColumn(1).
+                setHeaderRenderer(dtcr);
+        user_table.getTableHeader().getColumnModel().getColumn(2).
+                setHeaderRenderer(dtcr);
+         user_table.getTableHeader().getColumnModel().getColumn(3).
+                setHeaderRenderer(dtcr);
+        user_table.setRowHeight(25);
+        user_table.setFont(new Font("SansSerif",Font.PLAIN,18));
+        user_table.setForeground(gray);
+        user_table.setBackground(lapis);
+        TableColumnModel tcm3 = user_table.getColumnModel();
+        tcm3.getColumn(0).setPreferredWidth(60);
+        tcm3.getColumn(0).setMaxWidth(60);
+        tcm3.getColumn(0).setMinWidth(60);
+        tcm3.getColumn(1).setPreferredWidth(200);
+        tcm3.getColumn(1).setMaxWidth(1000);
+        tcm3.getColumn(2).setPreferredWidth(200);
+        tcm3.getColumn(2).setMaxWidth(1000);
+        tcm3.getColumn(3).setPreferredWidth(60);
+        tcm3.getColumn(3).setMaxWidth(60);
+        // termino config tabla usuarios
         cl = (CardLayout) card_panel.getLayout();
     }
     
@@ -135,8 +162,26 @@ public class Home extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         inventory_table = new javax.swing.JTable();
         user_card = new javax.swing.JPanel();
+        combob_buscar1 = new javax.swing.JComboBox<>();
+        boton_buscar_usuario = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        boton_actualizar_usuario = new javax.swing.JLabel();
+        boton_guardar_usuario = new javax.swing.JLabel();
+        boton_eliminar_usuario = new javax.swing.JLabel();
+        nombre_tf1 = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        contraseña_tf2 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        user_table = new javax.swing.JTable();
+        separator4 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1360, 768));
 
         jSplitPane1.setDividerSize(0);
 
@@ -298,7 +343,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(home_cardLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addContainerGap(1130, Short.MAX_VALUE))
+                .addContainerGap(1145, Short.MAX_VALUE))
         );
         home_cardLayout.setVerticalGroup(
             home_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,18 +436,6 @@ public class Home extends javax.swing.JFrame {
             .addGroup(pos_cardLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pos_cardLayout.createSequentialGroup()
-                        .addComponent(title_label, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(225, 225, 225)
-                        .addComponent(title_label2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(247, 247, 247)
-                        .addComponent(title_label1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(title_label3)
-                    .addComponent(separator1)
-                    .addGroup(pos_cardLayout.createSequentialGroup()
-                        .addComponent(search_bar_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(search_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pos_cardLayout.createSequentialGroup()
                         .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(pos_cardLayout.createSequentialGroup()
@@ -411,8 +444,25 @@ public class Home extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(qty_add, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1))
-                        .addGap(590, 590, 590)))
-                .addGap(16, 16, 16))
+                        .addGap(606, 606, 606))
+                    .addGroup(pos_cardLayout.createSequentialGroup()
+                        .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(title_label3)
+                            .addGroup(pos_cardLayout.createSequentialGroup()
+                                .addComponent(search_bar_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(search_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(16, 16, 16))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pos_cardLayout.createSequentialGroup()
+                        .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(separator1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pos_cardLayout.createSequentialGroup()
+                                .addComponent(title_label, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                                .addGap(225, 225, 225)
+                                .addComponent(title_label2, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
+                                .addGap(218, 218, 218)
+                                .addComponent(title_label1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)))
+                        .addGap(45, 45, 45))))
         );
         pos_cardLayout.setVerticalGroup(
             pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -473,7 +523,7 @@ public class Home extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(5, 92, 157));
         jLabel5.setText("Eliminar");
 
-        boton_actualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_len.png"))); // NOI18N
+        boton_actualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/update.png"))); // NOI18N
         boton_actualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         boton_actualizar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -487,7 +537,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        boton_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_len.png"))); // NOI18N
+        boton_guardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
         boton_guardar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         boton_guardar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -501,7 +551,7 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
-        boton_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_len.png"))); // NOI18N
+        boton_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete.png"))); // NOI18N
         boton_eliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         boton_eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -585,72 +635,86 @@ public class Home extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(inventory_cardLayout.createSequentialGroup()
-                        .addComponent(separator2)
-                        .addGap(16, 16, 16))
-                    .addGroup(inventory_cardLayout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(524, 524, 524)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(193, 193, 193))
-                    .addGroup(inventory_cardLayout.createSequentialGroup()
                         .addComponent(jScrollPane2)
                         .addGap(176, 176, 176))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inventory_cardLayout.createSequentialGroup()
                         .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, inventory_cardLayout.createSequentialGroup()
+                                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(nombre_tf, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(1, 1, 1)))
+                        .addGap(50, 50, 50)
+                        .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(id_proveedor_tf, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(50, 50, 50)
+                        .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cantidad_tf, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(50, 50, 50)
+                        .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(precio_tf, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(225, 225, 225))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inventory_cardLayout.createSequentialGroup()
+                        .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(separator2)
                             .addGroup(inventory_cardLayout.createSequentialGroup()
-                                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, inventory_cardLayout.createSequentialGroup()
-                                        .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(nombre_tf, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGap(1, 1, 1)))
-                                .addGap(50, 50, 50)
-                                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(id_proveedor_tf, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(50, 50, 50)
-                                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(cantidad_tf, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(50, 50, 50)
-                                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(precio_tf, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(inventory_cardLayout.createSequentialGroup()
-                                .addComponent(combob_buscar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(boton_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(285, 285, 285)
-                                .addComponent(boton_guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(111, 111, 111)
-                                .addComponent(boton_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(119, 119, 119)
-                                .addComponent(boton_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(225, 225, 225))))
+                                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(inventory_cardLayout.createSequentialGroup()
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                                        .addGap(989, 989, 989))
+                                    .addGroup(inventory_cardLayout.createSequentialGroup()
+                                        .addComponent(combob_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(boton_buscar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(inventory_cardLayout.createSequentialGroup()
+                                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(50, 50, 50)
+                                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inventory_cardLayout.createSequentialGroup()
+                                                .addGap(29, 29, 29)
+                                                .addComponent(boton_guardar)
+                                                .addGap(117, 117, 117)
+                                                .addComponent(boton_actualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(47, 47, 47)))
+                                        .addGap(56, 56, 56)))
+                                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inventory_cardLayout.createSequentialGroup()
+                                        .addGap(28, 28, 28)
+                                        .addComponent(boton_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(34, 34, 34)))))
+                        .addGap(45, 45, 45))))
         );
         inventory_cardLayout.setVerticalGroup(
             inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(inventory_cardLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5))
-                .addGap(8, 8, 8)
-                .addComponent(separator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(combob_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(boton_actualizar)
-                    .addComponent(boton_guardar)
-                    .addComponent(boton_eliminar)
-                    .addComponent(boton_buscar))
+                    .addGroup(inventory_cardLayout.createSequentialGroup()
+                        .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6))
+                        .addGap(24, 24, 24)
+                        .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(boton_actualizar)
+                            .addComponent(boton_guardar)))
+                    .addGroup(inventory_cardLayout.createSequentialGroup()
+                        .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel5))
+                        .addGap(8, 8, 8)
+                        .addComponent(separator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(inventory_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(combob_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(boton_buscar)
+                            .addComponent(boton_eliminar))))
                 .addGap(24, 24, 24)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -682,15 +746,204 @@ public class Home extends javax.swing.JFrame {
 
         user_card.setBackground(new java.awt.Color(255, 255, 255));
 
+        combob_buscar1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
+        boton_buscar_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_len.png"))); // NOI18N
+        boton_buscar_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        boton_buscar_usuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_buscar_usuarioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton_buscar_usuarioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton_buscar_usuarioMouseExited(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel15.setText("Administrar usuarios");
+
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel17.setText("Guardar");
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel18.setText("Actualizar");
+
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel19.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel19.setText("Eliminar");
+
+        boton_actualizar_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/update.png"))); // NOI18N
+        boton_actualizar_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        boton_actualizar_usuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_actualizar_usuarioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton_actualizar_usuarioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton_actualizar_usuarioMouseExited(evt);
+            }
+        });
+
+        boton_guardar_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/save.png"))); // NOI18N
+        boton_guardar_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        boton_guardar_usuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_guardar_usuarioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton_guardar_usuarioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton_guardar_usuarioMouseExited(evt);
+            }
+        });
+
+        boton_eliminar_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/delete.png"))); // NOI18N
+        boton_eliminar_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        boton_eliminar_usuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                boton_eliminar_usuarioMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                boton_eliminar_usuarioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                boton_eliminar_usuarioMouseExited(evt);
+            }
+        });
+
+        nombre_tf1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        nombre_tf1.setForeground(new java.awt.Color(51, 51, 51));
+        nombre_tf1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel20.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel20.setText("Datos de usuario");
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel21.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("Nombre de usuario");
+
+        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(5, 92, 157));
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("Contraseña");
+
+        contraseña_tf2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        contraseña_tf2.setForeground(new java.awt.Color(51, 51, 51));
+        contraseña_tf2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        user_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nombre", "Contraseña", "Activo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        user_table.setOpaque(false);
+        user_table.setShowGrid(false);
+        jScrollPane3.setViewportView(user_table);
+
+        separator4.setBackground(new java.awt.Color(5, 92, 157));
+
         javax.swing.GroupLayout user_cardLayout = new javax.swing.GroupLayout(user_card);
         user_card.setLayout(user_cardLayout);
         user_cardLayout.setHorizontalGroup(
             user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1274, Short.MAX_VALUE)
+            .addGroup(user_cardLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(user_cardLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3)
+                        .addGap(176, 176, 176))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, user_cardLayout.createSequentialGroup()
+                        .addGroup(user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel20, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, user_cardLayout.createSequentialGroup()
+                                .addGroup(user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(nombre_tf1, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(1, 1, 1)))
+                        .addGap(50, 50, 50)
+                        .addGroup(user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(contraseña_tf2)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, user_cardLayout.createSequentialGroup()
+                        .addComponent(combob_buscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(boton_buscar_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(boton_guardar_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(116, 116, 116)
+                        .addComponent(boton_actualizar_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(121, 121, 121)
+                        .addComponent(boton_eliminar_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(70, 70, 70))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, user_cardLayout.createSequentialGroup()
+                        .addGroup(user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(separator4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(user_cardLayout.createSequentialGroup()
+                                .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(572, 572, 572)
+                                .addComponent(jLabel17)
+                                .addGap(50, 50, 50)
+                                .addComponent(jLabel18)
+                                .addGap(50, 50, 50)
+                                .addComponent(jLabel19)))
+                        .addGap(42, 42, 42))))
         );
         user_cardLayout.setVerticalGroup(
             user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
+            .addGroup(user_cardLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel18)
+                    .addComponent(jLabel19))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(separator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addGroup(user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(combob_buscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boton_actualizar_usuario)
+                    .addComponent(boton_guardar_usuario)
+                    .addComponent(boton_eliminar_usuario)
+                    .addComponent(boton_buscar_usuario))
+                .addGap(24, 24, 24)
+                .addComponent(jLabel20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(user_cardLayout.createSequentialGroup()
+                        .addComponent(jLabel21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(nombre_tf1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(user_cardLayout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(contraseña_tf2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         card_panel.add(user_card, "card4");
@@ -833,11 +1086,15 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_boton_buscarMouseClicked
 
     private void boton_buscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_buscarMouseEntered
-
+        ImageIcon lens_change = new ImageIcon(
+                getClass().getResource("/icons/search_len_res.png"));
+        boton_buscar.setIcon(lens_change);
     }//GEN-LAST:event_boton_buscarMouseEntered
 
     private void boton_buscarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_buscarMouseExited
-
+        ImageIcon lens_png = new ImageIcon(
+                getClass().getResource("/icons/search_len.png"));
+        boton_buscar.setIcon(lens_png);
     }//GEN-LAST:event_boton_buscarMouseExited
 
     private void boton_actualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_actualizarMouseClicked
@@ -845,11 +1102,15 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_boton_actualizarMouseClicked
 
     private void boton_actualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_actualizarMouseEntered
-
+        ImageIcon lens_change = new ImageIcon(
+                getClass().getResource("/icons/update_res.png"));
+        boton_actualizar.setIcon(lens_change);
     }//GEN-LAST:event_boton_actualizarMouseEntered
 
     private void boton_actualizarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_actualizarMouseExited
-
+        ImageIcon lens_png = new ImageIcon(
+                getClass().getResource("/icons/update.png"));
+        boton_actualizar.setIcon(lens_png);
     }//GEN-LAST:event_boton_actualizarMouseExited
 
     private void boton_guardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_guardarMouseClicked
@@ -857,11 +1118,15 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_boton_guardarMouseClicked
 
     private void boton_guardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_guardarMouseEntered
-
+        ImageIcon lens_change = new ImageIcon(
+                getClass().getResource("/icons/save_res.png"));
+        boton_guardar.setIcon(lens_change);
     }//GEN-LAST:event_boton_guardarMouseEntered
 
     private void boton_guardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_guardarMouseExited
-
+        ImageIcon lens_png = new ImageIcon(
+                getClass().getResource("/icons/save.png"));
+        boton_guardar.setIcon(lens_png);
     }//GEN-LAST:event_boton_guardarMouseExited
 
     private void boton_eliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_eliminarMouseClicked
@@ -869,23 +1134,97 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_boton_eliminarMouseClicked
 
     private void boton_eliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_eliminarMouseEntered
-
+        ImageIcon lens_change = new ImageIcon(
+                getClass().getResource("/icons/delete_res.png"));
+        boton_eliminar.setIcon(lens_change);
     }//GEN-LAST:event_boton_eliminarMouseEntered
 
     private void boton_eliminarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_eliminarMouseExited
-
+        ImageIcon lens_png = new ImageIcon(
+                getClass().getResource("/icons/delete.png"));
+        boton_eliminar.setIcon(lens_png);
     }//GEN-LAST:event_boton_eliminarMouseExited
+
+    private void boton_buscar_usuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_buscar_usuarioMouseClicked
+        // hacer un SELECT * FROM USUARIO
+    }//GEN-LAST:event_boton_buscar_usuarioMouseClicked
+
+    private void boton_buscar_usuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_buscar_usuarioMouseEntered
+        ImageIcon lens_change = new ImageIcon(
+                getClass().getResource("/icons/search_len_res.png"));
+        boton_buscar_usuario.setIcon(lens_change);
+    }//GEN-LAST:event_boton_buscar_usuarioMouseEntered
+
+    private void boton_buscar_usuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_buscar_usuarioMouseExited
+        ImageIcon lens_png = new ImageIcon(
+                getClass().getResource("/icons/search_len.png"));
+        boton_buscar_usuario.setIcon(lens_png);
+    }//GEN-LAST:event_boton_buscar_usuarioMouseExited
+
+    private void boton_actualizar_usuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_actualizar_usuarioMouseClicked
+        // hacer un UPDATE USUARIO
+    }//GEN-LAST:event_boton_actualizar_usuarioMouseClicked
+
+    private void boton_actualizar_usuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_actualizar_usuarioMouseEntered
+        ImageIcon lens_change = new ImageIcon(
+                getClass().getResource("/icons/update_res.png"));
+        boton_actualizar_usuario.setIcon(lens_change);
+    }//GEN-LAST:event_boton_actualizar_usuarioMouseEntered
+
+    private void boton_actualizar_usuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_actualizar_usuarioMouseExited
+        ImageIcon lens_png = new ImageIcon(
+                getClass().getResource("/icons/update.png"));
+        boton_actualizar_usuario.setIcon(lens_png);
+    }//GEN-LAST:event_boton_actualizar_usuarioMouseExited
+
+    private void boton_guardar_usuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_guardar_usuarioMouseClicked
+        // hacer un INSERT INTO USUARIO
+    }//GEN-LAST:event_boton_guardar_usuarioMouseClicked
+
+    private void boton_guardar_usuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_guardar_usuarioMouseEntered
+        ImageIcon lens_change = new ImageIcon(
+                getClass().getResource("/icons/save_res.png"));
+        boton_guardar_usuario.setIcon(lens_change);
+    }//GEN-LAST:event_boton_guardar_usuarioMouseEntered
+
+    private void boton_guardar_usuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_guardar_usuarioMouseExited
+        ImageIcon lens_png = new ImageIcon(
+                getClass().getResource("/icons/save.png"));
+        boton_guardar_usuario.setIcon(lens_png);
+    }//GEN-LAST:event_boton_guardar_usuarioMouseExited
+
+    private void boton_eliminar_usuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_eliminar_usuarioMouseClicked
+        // hacer un DELETE FROM USUARIO
+    }//GEN-LAST:event_boton_eliminar_usuarioMouseClicked
+
+    private void boton_eliminar_usuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_eliminar_usuarioMouseEntered
+        ImageIcon lens_change = new ImageIcon(
+                getClass().getResource("/icons/delete_res.png"));
+        boton_eliminar_usuario.setIcon(lens_change);
+    }//GEN-LAST:event_boton_eliminar_usuarioMouseEntered
+
+    private void boton_eliminar_usuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_eliminar_usuarioMouseExited
+        ImageIcon lens_png = new ImageIcon(
+                getClass().getResource("/icons/delete.png"));
+        boton_eliminar_usuario.setIcon(lens_png);
+    }//GEN-LAST:event_boton_eliminar_usuarioMouseExited
  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back_button;
     private javax.swing.JLabel boton_actualizar;
+    private javax.swing.JLabel boton_actualizar_usuario;
     private javax.swing.JLabel boton_buscar;
+    private javax.swing.JLabel boton_buscar_usuario;
     private javax.swing.JLabel boton_eliminar;
+    private javax.swing.JLabel boton_eliminar_usuario;
     private javax.swing.JLabel boton_guardar;
+    private javax.swing.JLabel boton_guardar_usuario;
     private javax.swing.JTextField cantidad_tf;
     private javax.swing.JPanel card_panel;
     private javax.swing.JTable cart_table;
     private javax.swing.JComboBox<String> combob_buscar;
+    private javax.swing.JComboBox<String> combob_buscar1;
+    private javax.swing.JTextField contraseña_tf2;
     private javax.swing.JPanel home_card;
     private javax.swing.JTextField id_proveedor_tf;
     private javax.swing.JLabel inventory_button;
@@ -894,6 +1233,13 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -903,10 +1249,12 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JPanel left_panel;
     private javax.swing.JLabel logo_image;
     private javax.swing.JTextField nombre_tf;
+    private javax.swing.JTextField nombre_tf1;
     private javax.swing.JLabel pos_button;
     private javax.swing.JPanel pos_card;
     private javax.swing.JTextField precio_tf;
@@ -916,6 +1264,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel search_button;
     private javax.swing.JSeparator separator1;
     private javax.swing.JSeparator separator2;
+    private javax.swing.JSeparator separator4;
     private javax.swing.JLabel start_button;
     private javax.swing.JLabel title_label;
     private javax.swing.JLabel title_label1;
@@ -923,5 +1272,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JLabel title_label3;
     private javax.swing.JLabel user_button;
     private javax.swing.JPanel user_card;
+    private javax.swing.JTable user_table;
     // End of variables declaration//GEN-END:variables
 }
