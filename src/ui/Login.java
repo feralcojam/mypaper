@@ -90,6 +90,11 @@ public class Login extends javax.swing.JFrame {
         user_tf.setForeground(new java.awt.Color(0, 185, 232));
         user_tf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         user_tf.setBorder(null);
+        user_tf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                user_tfKeyTyped(evt);
+            }
+        });
         getContentPane().add(user_tf, new org.netbeans.lib.awtextra.AbsoluteConstraints(512, 210, 180, -1));
 
         separator1.setBackground(new java.awt.Color(0, 185, 232));
@@ -162,6 +167,31 @@ public class Login extends javax.swing.JFrame {
     private void login_buttonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_buttonMouseExited
         login_button.setBackground(new Color(5,92,157));
     }//GEN-LAST:event_login_buttonMouseExited
+
+    private void user_tfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_user_tfKeyTyped
+        int limiteChar = user_tf.getText().length();
+        if(evt.getKeyChar() >= 32 && evt.getKeyChar() <= 44) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() >= 46 && evt.getKeyChar() <= 47) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() >= 58 && evt.getKeyChar() <= 64) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() >= 91 && evt.getKeyChar() <= 94) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() == 96) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() >= 123) {
+            evt.consume();
+        }
+        if(limiteChar >= 25) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_user_tfKeyTyped
 
     
     public static void main(String args[]) {
