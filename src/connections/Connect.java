@@ -20,7 +20,7 @@ public class Connect {
     public Connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mypaper", "root", "JESUSdaniel444");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mypaper", "root", "1234");
             st = con.createStatement();
             ps = con.prepareStatement("select * from usuario");
             rs = st.executeQuery("select * from usuario");
@@ -107,6 +107,18 @@ public class Connect {
         try {
             ps = con.prepareStatement("DELETE FROM USUARIO WHERE ID = ?");
             ps.setInt(1, ID);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+        return false;
+    }
+    
+    public boolean Eliminar_Producto(String Nombre) {
+        try {
+            ps = con.prepareStatement("DELETE FROM PRODUCTO WHERE Nombre = ?");
+            ps.setString(1, Nombre);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -217,5 +229,19 @@ public class Connect {
         }
         return modelo;
     }
-    
+    public boolean Actualizar_Producto(String Nombre, int ID_Proveedor, int Cantidad, double Precio) {
+        try {
+            ps = con.prepareStatement("UPDATE PRODUCTO SET NOMBRE = ?, ID_PROVEEDOR = ?, CANTIDAD = ?, PRECIO = ? WHERE NOMBRE = ?");
+            ps.setString(1, Nombre);
+            ps.setInt(2, ID_Proveedor);
+            ps.setInt(3, Cantidad);
+            ps.setDouble(4, Precio);
+            ps.setString(5, Nombre);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+        return false;
+    }
 }

@@ -1,16 +1,11 @@
 package ui;
 
 import connections.Connect;
-import connections.LogToBD;
-import connections.LoginData;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 public class Login extends javax.swing.JFrame {
-    
-    LogToBD ltbd = new LogToBD();
-    LoginData lgd = new LoginData();
     
     public Login() {
         initComponents();
@@ -91,7 +86,6 @@ public class Login extends javax.swing.JFrame {
         username_label.setText("Nombre de Usuario");
         getContentPane().add(username_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(512, 180, -1, -1));
 
-        user_tf.setBackground(new java.awt.Color(255, 255, 255));
         user_tf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         user_tf.setForeground(new java.awt.Color(0, 185, 232));
         user_tf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -106,7 +100,6 @@ public class Login extends javax.swing.JFrame {
         password_label.setText("Contraseña");
         getContentPane().add(password_label, new org.netbeans.lib.awtextra.AbsoluteConstraints(545, 250, -1, -1));
 
-        user_pf.setBackground(new java.awt.Color(255, 255, 255));
         user_pf.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         user_pf.setForeground(new java.awt.Color(0, 185, 232));
         user_pf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
