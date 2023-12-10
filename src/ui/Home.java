@@ -1,9 +1,11 @@
 package ui;
 
 import connections.Connect;
+import static connections.Connect.stock;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.text.DecimalFormat;
 import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -33,6 +35,7 @@ public class Home extends javax.swing.JFrame {
         precio_tf.setOpaque(false);
         rellenar_combobox();
         rellenar_combobox_inventario();
+        rellenar_combobox_pos();
         ///////////////////
         /////////////////////////
         // objetos para personalizar tabla
@@ -119,7 +122,7 @@ public class Home extends javax.swing.JFrame {
         tcm3.getColumn(3).setMaxWidth(60);
         // termino config tabla usuarios
         cl = (CardLayout) card_panel.getLayout();
-        
+
         ajustar_modelo_general();
         ajustar_modelo_general_inventario();
 
@@ -138,7 +141,7 @@ public class Home extends javax.swing.JFrame {
                 }
             }
         });
-        
+
         inventory_table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent event) {
@@ -168,7 +171,7 @@ public class Home extends javax.swing.JFrame {
             combob_buscar2.addItem(elemento);
         }
     }
-    
+
     public void rellenar_combobox() {
         Connect bd = new Connect();
         Vector<String> Nombres = new Vector<String>();
@@ -186,7 +189,7 @@ public class Home extends javax.swing.JFrame {
             combob_buscar.addItem(elemento);
         }
     }
-    
+
     public void ajustar_modelo_pos(String nombre) {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setColumnCount(0);
@@ -198,7 +201,7 @@ public class Home extends javax.swing.JFrame {
         modelo = bd.Info_inventario(nombre, modelo);
         cart_table.setModel(modelo);
     }
-    
+
     public void ajustar_modelo(String nombre) {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setColumnCount(0);
@@ -209,7 +212,7 @@ public class Home extends javax.swing.JFrame {
         modelo = bd.Info_usuario(nombre, modelo);
         user_table.setModel(modelo);
     }
-    
+
     public void ajustar_modelo_inventario(String nombre) {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.setColumnCount(0);
@@ -246,7 +249,7 @@ public class Home extends javax.swing.JFrame {
         modelo = bd.Info_todos_inventario(modelo);
         inventory_table.setModel(modelo);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -274,11 +277,11 @@ public class Home extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         total_label = new javax.swing.JLabel();
-        pago_label = new javax.swing.JLabel();
         cambio_label = new javax.swing.JLabel();
         separator3 = new javax.swing.JSeparator();
         title_label4 = new javax.swing.JLabel();
         combob_buscar2 = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
         inventory_card = new javax.swing.JPanel();
         combob_buscar = new javax.swing.JComboBox<>();
         boton_buscar = new javax.swing.JLabel();
@@ -441,7 +444,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(user_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(504, Short.MAX_VALUE))
+                .addContainerGap(505, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(left_panel);
@@ -526,7 +529,12 @@ public class Home extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(5, 92, 157));
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setText("Pago");
+        jLabel13.setText("Pagar");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
 
         jLabel14.setBackground(new java.awt.Color(45, 61, 130));
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
@@ -539,18 +547,13 @@ public class Home extends javax.swing.JFrame {
         total_label.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         total_label.setForeground(new java.awt.Color(5, 92, 157));
         total_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        total_label.setText("$ 00.00");
-
-        pago_label.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        pago_label.setForeground(new java.awt.Color(5, 92, 157));
-        pago_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        pago_label.setText("$ 00.00");
+        total_label.setText("00.00");
 
         cambio_label.setBackground(new java.awt.Color(45, 61, 130));
         cambio_label.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         cambio_label.setForeground(new java.awt.Color(255, 255, 255));
         cambio_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        cambio_label.setText("$ 00.00");
+        cambio_label.setText("00.00");
         cambio_label.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(51, 255, 255)));
         cambio_label.setOpaque(true);
 
@@ -586,10 +589,11 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(combob_buscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(search_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(46, 46, 46)
                                 .addComponent(qty_bar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(qty_add, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(44, 44, 44)
+                                .addComponent(qty_add, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(590, 590, 590))))
             .addGroup(pos_cardLayout.createSequentialGroup()
                 .addGap(117, 117, 117)
@@ -600,16 +604,18 @@ public class Home extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addComponent(cambio_label, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pos_cardLayout.createSequentialGroup()
-                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(pago_label, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pos_cardLayout.createSequentialGroup()
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(total_label, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pos_cardLayout.createSequentialGroup()
                         .addGap(179, 179, 179)
-                        .addComponent(title_label3)))
+                        .addComponent(title_label3))
+                    .addGroup(pos_cardLayout.createSequentialGroup()
+                        .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(101, 101, 101)
+                        .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(total_label, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pos_cardLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pos_cardLayout.createSequentialGroup()
@@ -639,25 +645,26 @@ public class Home extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(title_label3)
                 .addGap(18, 18, 18)
-                .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(total_label))
-                .addGap(18, 18, 18)
-                .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
-                    .addComponent(pago_label))
+                .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(pos_cardLayout.createSequentialGroup()
+                        .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(total_label))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel13))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(separator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(cambio_label))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pos_cardLayout.createSequentialGroup()
                     .addGap(149, 149, 149)
                     .addComponent(title_label4)
-                    .addContainerGap(590, Short.MAX_VALUE)))
+                    .addContainerGap(588, Short.MAX_VALUE)))
         );
 
         card_panel.add(pos_card, "card2");
@@ -936,7 +943,7 @@ public class Home extends javax.swing.JFrame {
                             .addComponent(precio_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         card_panel.add(inventory_card, "card3");
@@ -1152,7 +1159,7 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(pass_pf)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         card_panel.add(user_card, "card4");
@@ -1167,7 +1174,7 @@ public class Home extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jSplitPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
         );
 
         pack();
@@ -1245,12 +1252,12 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_logo_imageMouseExited
 
     private void search_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_search_buttonMouseClicked
-        try {
+        /*try {
             String nombre = combob_buscar2.getSelectedItem().toString();
             ajustar_modelo_pos(nombre);
         } catch (Exception e) {
             System.out.println("error ");
-        }
+        }*/
     }//GEN-LAST:event_search_buttonMouseClicked
 
     private void search_buttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_search_buttonMouseEntered
@@ -1266,7 +1273,40 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_search_buttonMouseExited
 
     private void qty_addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_qty_addMouseClicked
-        qty_bar.setText("");
+        //agregar algo a la compra
+        try {
+            int numero = Integer.parseInt(qty_bar.getText());
+            if (numero > 0) {
+                String nombre = combob_buscar2.getSelectedItem().toString();
+                Connect bd = new Connect();
+                boolean bandera = bd.verificar_cantidad(nombre, numero);
+                if (bandera) {
+                    DefaultTableModel modelo = (DefaultTableModel) cart_table.getModel();
+                    String arreglo[] = new String[3];
+
+                    arreglo = bd.Busca_Info(nombre);
+                    arreglo[1] = numero + "";
+                    modelo.addRow(arreglo);
+                    cart_table.setModel(modelo);
+
+                    double cantidad = numero;
+                    double precio = Double.parseDouble(arreglo[2]);
+                    double total = Double.parseDouble(total_label.getText());
+
+                    DecimalFormat formato = new DecimalFormat("#.##");
+
+                    double precio_final = (cantidad * precio) + total;
+                    String resultadoFormateado = formato.format(precio_final);
+                    total_label.setText(resultadoFormateado);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Solo nos queda la cantidad de " + stock);
+                }
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Ingrese cantidad mayor a 0");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Ingresa una cantidad entera en la compra");
+        }
     }//GEN-LAST:event_qty_addMouseClicked
 
     private void qty_addMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_qty_addMouseEntered
@@ -1289,7 +1329,7 @@ public class Home extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println("error ");
         }
-        
+
     }//GEN-LAST:event_boton_buscarMouseClicked
 
     private void boton_buscarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_buscarMouseEntered
@@ -1312,7 +1352,7 @@ public class Home extends javax.swing.JFrame {
             int id_proveedor = Integer.parseInt(id_proveedor_tf.getText());
             int cantidad = Integer.parseInt(cantidad_tf.getText());
             double precio = Double.parseDouble(precio_tf.getText());
-            if (nombre.equals("") || id_proveedor <=0 || id_proveedor <=0 || cantidad <= 0 || precio <= 0) {
+            if (nombre.equals("") || id_proveedor <= 0 || id_proveedor <= 0 || cantidad <= 0 || precio <= 0) {
                 JOptionPane.showMessageDialog(rootPane, "No dejes datos en blanco");
             } else {
                 boolean bandera_atualizar = bd.Actualizar_Producto(nombre, id_proveedor, cantidad, precio);
@@ -1354,7 +1394,7 @@ public class Home extends javax.swing.JFrame {
             int id_proveedor = Integer.parseInt(id_proveedor_tf.getText());
             int cantidad = Integer.parseInt(cantidad_tf.getText());
             double precio = Double.parseDouble(precio_tf.getText());
-            if (nombre.equals("") || id_proveedor <=0 || id_proveedor <=0 || cantidad <= 0 || precio <= 0) {
+            if (nombre.equals("") || id_proveedor <= 0 || id_proveedor <= 0 || cantidad <= 0 || precio <= 0) {
                 JOptionPane.showMessageDialog(rootPane, "No dejes datos en blanco");
             } else {
                 boolean bandera_insertar = bd.Ingresar_Producto(nombre, id_proveedor, cantidad, precio);
@@ -1396,7 +1436,7 @@ public class Home extends javax.swing.JFrame {
             int id_proveedor = Integer.parseInt(id_proveedor_tf.getText());
             int cantidad = Integer.parseInt(cantidad_tf.getText());
             double precio = Double.parseDouble(precio_tf.getText());
-            if (nombre.equals("") || id_proveedor <=0 || id_proveedor <=0 || cantidad <= 0 || precio <= 0) {
+            if (nombre.equals("") || id_proveedor <= 0 || id_proveedor <= 0 || cantidad <= 0 || precio <= 0) {
                 JOptionPane.showMessageDialog(rootPane, "No dejes datos en blanco");
             } else {
                 boolean bandera_eliminar = bd.Eliminar_Producto(nombre);
@@ -1571,95 +1611,123 @@ public class Home extends javax.swing.JFrame {
 
     private void nombre_tfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombre_tfKeyTyped
         int limiteChar = nombre_tf.getText().length();
-        if(evt.getKeyChar() >= 33 && evt.getKeyChar() <= 39) {
+        if (evt.getKeyChar() >= 33 && evt.getKeyChar() <= 39) {
             evt.consume();
         }
-        if(evt.getKeyChar() >= 40 && evt.getKeyChar() <= 41) {
+        if (evt.getKeyChar() >= 40 && evt.getKeyChar() <= 41) {
             evt.consume();
         }
-        if(evt.getKeyChar() == 47) {
+        if (evt.getKeyChar() == 47) {
             evt.consume();
         }
-        if(evt.getKeyChar() >= 58 && evt.getKeyChar() <= 64) {
+        if (evt.getKeyChar() >= 58 && evt.getKeyChar() <= 64) {
             evt.consume();
         }
-        if(evt.getKeyChar() >= 91 && evt.getKeyChar() <= 96) {
+        if (evt.getKeyChar() >= 91 && evt.getKeyChar() <= 96) {
             evt.consume();
         }
-        if(evt.getKeyChar() >= 123 & evt.getKeyChar() <= 191) {
+        if (evt.getKeyChar() >= 123 & evt.getKeyChar() <= 191) {
             evt.consume();
         }
-        if(evt.getKeyChar() >= 256) {
+        if (evt.getKeyChar() >= 256) {
             evt.consume();
         }
-        if(limiteChar >= 100) {
+        if (limiteChar >= 100) {
             evt.consume();
         }
     }//GEN-LAST:event_nombre_tfKeyTyped
 
     private void id_proveedor_tfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_id_proveedor_tfKeyTyped
         int limiteChar = id_proveedor_tf.getText().length();
-        if(!Character.isDigit(evt.getKeyChar())) {
+        if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
-        if(limiteChar >= 2) {
+        if (limiteChar >= 2) {
             evt.consume();
         }
     }//GEN-LAST:event_id_proveedor_tfKeyTyped
 
     private void cantidad_tfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidad_tfKeyTyped
         int limiteChar = cantidad_tf.getText().length();
-        if(!Character.isDigit(evt.getKeyChar())) {
+        if (!Character.isDigit(evt.getKeyChar())) {
             evt.consume();
         }
-        if(limiteChar >= 4) {
+        if (limiteChar >= 4) {
             evt.consume();
         }
     }//GEN-LAST:event_cantidad_tfKeyTyped
 
     private void precio_tfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_precio_tfKeyTyped
         int limiteChar = precio_tf.getText().length();
-        if(!Character.isDigit(evt.getKeyChar())
-                && evt.getKeyChar() != 46)
-        {
+        if (!Character.isDigit(evt.getKeyChar())
+                && evt.getKeyChar() != 46) {
             evt.consume();
         }
-        if(limiteChar >= 6) {
+        if (limiteChar >= 6) {
             evt.consume();
         }
     }//GEN-LAST:event_precio_tfKeyTyped
 
     private void nombre_tf1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombre_tf1KeyTyped
         int limiteChar = nombre_tf1.getText().length();
-        if(evt.getKeyChar() >= 32 && evt.getKeyChar() <= 44) {
+        if (evt.getKeyChar() >= 32 && evt.getKeyChar() <= 44) {
             evt.consume();
         }
-        if(evt.getKeyChar() >= 46 && evt.getKeyChar() <= 47) {
+        if (evt.getKeyChar() >= 46 && evt.getKeyChar() <= 47) {
             evt.consume();
         }
-        if(evt.getKeyChar() >= 58 && evt.getKeyChar() <= 64) {
+        if (evt.getKeyChar() >= 58 && evt.getKeyChar() <= 64) {
             evt.consume();
         }
-        if(evt.getKeyChar() >= 91 && evt.getKeyChar() <= 94) {
+        if (evt.getKeyChar() >= 91 && evt.getKeyChar() <= 94) {
             evt.consume();
         }
-        if(evt.getKeyChar() == 96) {
+        if (evt.getKeyChar() == 96) {
             evt.consume();
         }
-        if(evt.getKeyChar() >= 123) {
+        if (evt.getKeyChar() >= 123) {
             evt.consume();
         }
-        if(limiteChar >= 25) {
+        if (limiteChar >= 25) {
             evt.consume();
         }
     }//GEN-LAST:event_nombre_tf1KeyTyped
 
     private void pass_pfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_pfKeyTyped
         int limiteChar = pass_pf.getPassword().length;
-        if(limiteChar >= 50) {
+        if (limiteChar >= 50) {
             evt.consume();
         }
     }//GEN-LAST:event_pass_pfKeyTyped
+
+    public void borrar_compra (){
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo = (DefaultTableModel)cart_table.getModel();
+        modelo.setRowCount(0);
+        cart_table.setModel(modelo);
+    }
+    
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        //pagar
+        try {
+            double monto = Double.parseDouble(jTextField1.getText());
+            if (monto > 0){
+                double pagar = Double.parseDouble(total_label.getText());
+                if (monto >= pagar){
+                    double resto = monto - pagar;
+                    cambio_label.setText(resto+"");
+                    qty_bar.setText("");
+                    borrar_compra();
+                }else{
+                    JOptionPane.showMessageDialog(rootPane, "Cantidad insuficiente de dinero");
+                }
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Ingresa una cantidad mayor a 0");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(rootPane, "Ingresa la cantidad");
+        }
+    }//GEN-LAST:event_jLabel13MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back_button;
@@ -1705,11 +1773,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel left_panel;
     private javax.swing.JLabel logo_image;
     private javax.swing.JTextField nombre_tf;
     private javax.swing.JTextField nombre_tf1;
-    private javax.swing.JLabel pago_label;
     private javax.swing.JPasswordField pass_pf;
     private javax.swing.JLabel pos_button;
     private javax.swing.JPanel pos_card;

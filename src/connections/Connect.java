@@ -16,11 +16,12 @@ public class Connect {
     static PreparedStatement ps;
     static Statement st;
     static ResultSet rs;
+    public static int stock = 0;
 
     public Connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mypaper", "root", "1234");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mypaper", "root", "JESUSdaniel444");
             st = con.createStatement();
             ps = con.prepareStatement("select * from usuario");
             rs = st.executeQuery("select * from usuario");
@@ -28,7 +29,7 @@ public class Connect {
             System.err.println(e);
         }
     }
-    
+
     public int Buscar_id(String Nombre) {
         try {
             ps = con.prepareStatement("Select id from usuario WHERE NOMBRE = ?");
@@ -43,6 +44,59 @@ public class Connect {
         return 0;
     }
     
+    public boolean verificar_cantidad(String Nombre, int total) {
+        try {
+            ps = con.prepareStatement("Select cantidad from producto WHERE NOMBRE = ?");
+            ps.setString(1, Nombre);
+            rs = ps.executeQuery();
+            int cantidad = 0;
+            while (rs.next()) {
+                cantidad = rs.getInt("cantidad");
+            }
+            stock = cantidad;
+            if (total <= cantidad){
+                int restante = cantidad-total;
+                retirar_cantidad(Nombre, restante);
+                return true;
+            }else{
+                return false;
+            }
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+        return false;
+    }
+    
+    public void retirar_cantidad(String Nombre, int total) {
+        try {
+            ps = con.prepareStatement("update producto set cantidad = ? WHERE NOMBRE = ?");
+            ps.setInt(1, total);
+            ps.setString(2, Nombre);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+    }
+
+    public String[] Busca_Info(String Nombre) {
+        String arreglo[] = new String[3];
+        try {
+            ps = con.prepareStatement("Select NOMBRE, PRECIO from PRODUCTO WHERE NOMBRE = ?");
+            ps.setString(1, Nombre);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                arreglo[0] = rs.getString("NOMBRE");
+                arreglo[2] = rs.getDouble("PRECIO") + "";
+                return arreglo;
+            }
+        } catch (Exception e) {
+            System.err.print(e);
+        }
+        return arreglo;
+    }
+    
+    
+
     public boolean Inicio_Sesion(String Nombre, String Contraseña) {
         try {
             ps = con.prepareStatement("Select * from usuario where NOMBRE = ? and CONTRASEÑA = ?");
@@ -72,7 +126,7 @@ public class Connect {
         }
         return false;
     }
-    
+
     public boolean Ingresar_Producto(String Nombre, int id_proveedor, int cantidad, double precio) {
         try {
             ps = con.prepareStatement("INSERT INTO PRODUCTO VALUES (?,?,?,?,?)");
@@ -88,7 +142,7 @@ public class Connect {
         }
         return false;
     }
-    
+
     public boolean Actualizar_Usuario(String Nombre, String Contraseña, int ID) {
         try {
             ps = con.prepareStatement("UPDATE USUARIO SET NOMBRE = ?, CONTRASEÑA = ? WHERE ID = ?");
@@ -102,7 +156,7 @@ public class Connect {
         }
         return false;
     }
-    
+
     public boolean Eliminar_Usuario(int ID) {
         try {
             ps = con.prepareStatement("DELETE FROM USUARIO WHERE ID = ?");
@@ -114,7 +168,7 @@ public class Connect {
         }
         return false;
     }
-    
+
     public boolean Eliminar_Producto(String Nombre) {
         try {
             ps = con.prepareStatement("DELETE FROM PRODUCTO WHERE Nombre = ?");
@@ -145,7 +199,7 @@ public class Connect {
     public Vector Nombre_producto() {
         Vector<String> Nombre = new Vector<String>();
         try {
-            ps = con.prepareStatement("Select NOMBRE from producto");
+            ps = con.prepareStatement("Select NOMBRE from producto order by NOMBRE ASC");
             rs = ps.executeQuery();
             while (rs.next()) {
                 Nombre.add(rs.getString("NOMBRE"));
@@ -156,7 +210,7 @@ public class Connect {
         }
         return Nombre;
     }
-    
+
     public DefaultTableModel Info_usuario(String Nombre, DefaultTableModel modelo) {
         try {
             String arreglo[] = new String[2];
@@ -174,7 +228,7 @@ public class Connect {
         }
         return modelo;
     }
-    
+
     public DefaultTableModel Info_todos_usuarios(DefaultTableModel modelo) {
         try {
             String arreglo[] = new String[2];
@@ -190,7 +244,7 @@ public class Connect {
         }
         return modelo;
     }
-    
+
     public DefaultTableModel Info_todos_inventario(DefaultTableModel modelo) {
         try {
             String arreglo[] = new String[4];
@@ -208,8 +262,7 @@ public class Connect {
         }
         return modelo;
     }
-    
-    
+
     public DefaultTableModel Info_inventario(String Nombre, DefaultTableModel modelo) {
         try {
             String arreglo[] = new String[4];
@@ -229,6 +282,7 @@ public class Connect {
         }
         return modelo;
     }
+
     public boolean Actualizar_Producto(String Nombre, int ID_Proveedor, int Cantidad, double Precio) {
         try {
             ps = con.prepareStatement("UPDATE PRODUCTO SET NOMBRE = ?, ID_PROVEEDOR = ?, CANTIDAD = ?, PRECIO = ? WHERE NOMBRE = ?");

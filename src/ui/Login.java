@@ -6,33 +6,33 @@ import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 public class Login extends javax.swing.JFrame {
-    
+
     public Login() {
         initComponents();
         user_tf.setOpaque(false);
         user_pf.setOpaque(false);
         login_button.setUI(new BasicButtonUI());
     }
-    
+
     public void login() {
         String user = user_tf.getText();
         String pass = String.valueOf(user_pf.getPassword());
-        if(!"".equals(user) || !"".equals(pass)) {
-            Connect bd = new Connect ();
+        if (!"".equals(user) || !"".equals(pass)) {
+            Connect bd = new Connect();
             boolean bandera_usuario = bd.Inicio_Sesion(user, pass);
-            if (bandera_usuario == true){
+            if (bandera_usuario == true) {
                 JOptionPane.showMessageDialog(rootPane, "Usuario encontrado");
-                Home home = new Home ();
+                Home home = new Home();
                 home.setVisible(true);
                 this.dispose();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(rootPane, "Credenciales incorrectas");
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Ingresa todos los datos");
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -161,41 +161,40 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_login_buttonActionPerformed
 
     private void login_buttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_buttonMouseEntered
-        login_button.setBackground(new Color(45,104,196));
+        login_button.setBackground(new Color(45, 104, 196));
     }//GEN-LAST:event_login_buttonMouseEntered
 
     private void login_buttonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_login_buttonMouseExited
-        login_button.setBackground(new Color(5,92,157));
+        login_button.setBackground(new Color(5, 92, 157));
     }//GEN-LAST:event_login_buttonMouseExited
 
     private void user_tfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_user_tfKeyTyped
         int limiteChar = user_tf.getText().length();
-        if(evt.getKeyChar() >= 32 && evt.getKeyChar() <= 44) {
+        if (evt.getKeyChar() >= 32 && evt.getKeyChar() <= 44) {
             evt.consume();
         }
-        if(evt.getKeyChar() >= 46 && evt.getKeyChar() <= 47) {
+        if (evt.getKeyChar() >= 46 && evt.getKeyChar() <= 47) {
             evt.consume();
         }
-        if(evt.getKeyChar() >= 58 && evt.getKeyChar() <= 64) {
+        if (evt.getKeyChar() >= 58 && evt.getKeyChar() <= 64) {
             evt.consume();
         }
-        if(evt.getKeyChar() >= 91 && evt.getKeyChar() <= 94) {
+        if (evt.getKeyChar() >= 91 && evt.getKeyChar() <= 94) {
             evt.consume();
         }
-        if(evt.getKeyChar() == 96) {
+        if (evt.getKeyChar() == 96) {
             evt.consume();
         }
-        if(evt.getKeyChar() >= 123) {
+        if (evt.getKeyChar() >= 123) {
             evt.consume();
         }
-        if(limiteChar >= 25) {
+        if (limiteChar >= 25) {
             evt.consume();
         }
     }//GEN-LAST:event_user_tfKeyTyped
 
-    
     public static void main(String args[]) {
-        
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
