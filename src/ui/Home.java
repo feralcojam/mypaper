@@ -27,7 +27,6 @@ public class Home extends javax.swing.JFrame {
 
     public Home() {
         initComponents();
-        search_bar_tf.setOpaque(false);
         nombre_tf.setOpaque(false);
         id_proveedor_tf.setOpaque(false);
         cantidad_tf.setOpaque(false);
@@ -120,7 +119,7 @@ public class Home extends javax.swing.JFrame {
         tcm3.getColumn(3).setMaxWidth(60);
         // termino config tabla usuarios
         cl = (CardLayout) card_panel.getLayout();
-
+        
         ajustar_modelo_general();
         ajustar_modelo_general_inventario();
 
@@ -134,7 +133,7 @@ public class Home extends javax.swing.JFrame {
                         Object value1 = user_table.getValueAt(selectedRow, 0);
                         Object value2 = user_table.getValueAt(selectedRow, 1);
                         nombre_tf1.setText(value1.toString());
-                        contraseña_tf2.setText(value2.toString());
+                        pass_pf.setText(value2.toString());
                     }
                 }
             }
@@ -161,6 +160,15 @@ public class Home extends javax.swing.JFrame {
         });
     }
 
+    public void rellenar_combobox_pos() {
+        Connect bd = new Connect();
+        Vector<String> Nombres = new Vector<String>();
+        Nombres = bd.Nombre_producto();
+        for (String elemento : Nombres) {
+            combob_buscar2.addItem(elemento);
+        }
+    }
+    
     public void rellenar_combobox() {
         Connect bd = new Connect();
         Vector<String> Nombres = new Vector<String>();
@@ -177,6 +185,18 @@ public class Home extends javax.swing.JFrame {
         for (String elemento : Nombres) {
             combob_buscar.addItem(elemento);
         }
+    }
+    
+    public void ajustar_modelo_pos(String nombre) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.setColumnCount(0);
+        modelo.setNumRows(0);
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Qty");
+        modelo.addColumn("Precio");
+        Connect bd = new Connect();
+        modelo = bd.Info_inventario(nombre, modelo);
+        cart_table.setModel(modelo);
     }
     
     public void ajustar_modelo(String nombre) {
@@ -234,18 +254,14 @@ public class Home extends javax.swing.JFrame {
         jSplitPane1 = new javax.swing.JSplitPane();
         left_panel = new javax.swing.JPanel();
         logo_image = new javax.swing.JLabel();
-        start_button = new javax.swing.JLabel();
         pos_button = new javax.swing.JLabel();
         user_button = new javax.swing.JLabel();
         inventory_button = new javax.swing.JLabel();
         back_button = new javax.swing.JLabel();
         card_panel = new javax.swing.JPanel();
-        home_card = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         pos_card = new javax.swing.JPanel();
         title_label = new javax.swing.JLabel();
         separator1 = new javax.swing.JSeparator();
-        search_bar_tf = new javax.swing.JTextField();
         search_button = new javax.swing.JLabel();
         qty_bar = new javax.swing.JTextField();
         qty_add = new javax.swing.JLabel();
@@ -262,6 +278,7 @@ public class Home extends javax.swing.JFrame {
         cambio_label = new javax.swing.JLabel();
         separator3 = new javax.swing.JSeparator();
         title_label4 = new javax.swing.JLabel();
+        combob_buscar2 = new javax.swing.JComboBox<>();
         inventory_card = new javax.swing.JPanel();
         combob_buscar = new javax.swing.JComboBox<>();
         boton_buscar = new javax.swing.JLabel();
@@ -295,10 +312,10 @@ public class Home extends javax.swing.JFrame {
         boton_guardar_usuario = new javax.swing.JLabel();
         boton_eliminar_usuario = new javax.swing.JLabel();
         nombre_tf1 = new javax.swing.JTextField();
+        pass_pf = new javax.swing.JPasswordField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        contraseña_tf2 = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         user_table = new javax.swing.JTable();
         separator4 = new javax.swing.JSeparator();
@@ -319,25 +336,6 @@ public class Home extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 logo_imageMouseExited(evt);
-            }
-        });
-
-        start_button.setBackground(new java.awt.Color(45, 104, 196));
-        start_button.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        start_button.setForeground(new java.awt.Color(204, 204, 204));
-        start_button.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        start_button.setText("Inicio");
-        start_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        start_button.setOpaque(true);
-        start_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                start_buttonMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                start_buttonMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                start_buttonMouseExited(evt);
             }
         });
 
@@ -425,7 +423,6 @@ public class Home extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(logo_image, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12))
-            .addComponent(start_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(pos_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(user_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(inventory_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -436,49 +433,20 @@ public class Home extends javax.swing.JFrame {
             .addGroup(left_panelLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(logo_image, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
-                .addComponent(start_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(48, 48, 48)
                 .addComponent(pos_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inventory_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(user_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(back_button, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(465, Short.MAX_VALUE))
+                .addContainerGap(504, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(left_panel);
 
         card_panel.setLayout(new java.awt.CardLayout());
-
-        home_card.setBackground(new java.awt.Color(255, 255, 255));
-        home_card.setToolTipText("");
-        home_card.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(5, 92, 157));
-        jLabel1.setText("Dashboard");
-
-        javax.swing.GroupLayout home_cardLayout = new javax.swing.GroupLayout(home_card);
-        home_card.setLayout(home_cardLayout);
-        home_cardLayout.setHorizontalGroup(
-            home_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(home_cardLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel1)
-                .addContainerGap(1145, Short.MAX_VALUE))
-        );
-        home_cardLayout.setVerticalGroup(
-            home_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(home_cardLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel1)
-                .addContainerGap(723, Short.MAX_VALUE))
-        );
-
-        card_panel.add(home_card, "card1");
 
         pos_card.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -487,10 +455,6 @@ public class Home extends javax.swing.JFrame {
         title_label.setText("MyPaper - Punto de Venta");
 
         separator1.setBackground(new java.awt.Color(5, 92, 157));
-
-        search_bar_tf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        search_bar_tf.setForeground(new java.awt.Color(51, 51, 51));
-        search_bar_tf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         search_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_len.png"))); // NOI18N
         search_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -596,6 +560,8 @@ public class Home extends javax.swing.JFrame {
         title_label4.setForeground(new java.awt.Color(5, 92, 157));
         title_label4.setText("Carrito");
 
+        combob_buscar2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+
         javax.swing.GroupLayout pos_cardLayout = new javax.swing.GroupLayout(pos_card);
         pos_card.setLayout(pos_cardLayout);
         pos_cardLayout.setHorizontalGroup(
@@ -603,41 +569,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(pos_cardLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pos_cardLayout.createSequentialGroup()
-                        .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pos_cardLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(qty_bar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(qty_add, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1))
-                        .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pos_cardLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(separator3, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pos_cardLayout.createSequentialGroup()
-                                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(42, 42, 42)
-                                        .addComponent(cambio_label, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(pos_cardLayout.createSequentialGroup()
-                                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(42, 42, 42)
-                                        .addComponent(pago_label, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(pos_cardLayout.createSequentialGroup()
-                                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(42, 42, 42)
-                                        .addComponent(total_label, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(pos_cardLayout.createSequentialGroup()
-                                .addGap(197, 197, 197)
-                                .addComponent(title_label3)))
-                        .addGap(96, 96, 96))
                     .addGroup(pos_cardLayout.createSequentialGroup()
-                        .addComponent(search_bar_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(search_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(16, 16, 16))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pos_cardLayout.createSequentialGroup()
                         .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(separator1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pos_cardLayout.createSequentialGroup()
@@ -646,7 +578,39 @@ public class Home extends javax.swing.JFrame {
                                 .addComponent(title_label2, javax.swing.GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
                                 .addGap(218, 218, 218)
                                 .addComponent(title_label1, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)))
-                        .addGap(45, 45, 45))))
+                        .addGap(45, 45, 45))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pos_cardLayout.createSequentialGroup()
+                        .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pos_cardLayout.createSequentialGroup()
+                                .addComponent(combob_buscar2, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(search_button, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(qty_bar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(qty_add, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(590, 590, 590))))
+            .addGroup(pos_cardLayout.createSequentialGroup()
+                .addGap(117, 117, 117)
+                .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(separator3, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pos_cardLayout.createSequentialGroup()
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(cambio_label, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pos_cardLayout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(pago_label, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pos_cardLayout.createSequentialGroup()
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(42, 42, 42)
+                        .addComponent(total_label, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pos_cardLayout.createSequentialGroup()
+                        .addGap(179, 179, 179)
+                        .addComponent(title_label3)))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pos_cardLayout.createSequentialGroup()
                     .addGap(26, 26, 26)
@@ -665,32 +629,30 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(separator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(search_bar_tf, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(search_button)
-                    .addComponent(qty_bar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(qty_add))
-                .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pos_cardLayout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pos_cardLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(title_label3)
-                        .addGap(18, 18, 18)
-                        .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(total_label))
-                        .addGap(18, 18, 18)
-                        .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel13)
-                            .addComponent(pago_label))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(separator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel14)
-                            .addComponent(cambio_label))))
-                .addContainerGap(138, Short.MAX_VALUE))
+                    .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(qty_bar)
+                        .addComponent(qty_add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(combob_buscar2))
+                    .addComponent(search_button))
+                .addGap(73, 73, 73)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(title_label3)
+                .addGap(18, 18, 18)
+                .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(total_label))
+                .addGap(18, 18, 18)
+                .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(pago_label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(separator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel14)
+                    .addComponent(cambio_label))
+                .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(pos_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pos_cardLayout.createSequentialGroup()
                     .addGap(149, 149, 149)
@@ -780,7 +742,13 @@ public class Home extends javax.swing.JFrame {
 
         nombre_tf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         nombre_tf.setForeground(new java.awt.Color(51, 51, 51));
+        nombre_tf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         nombre_tf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        nombre_tf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombre_tfKeyTyped(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(5, 92, 157));
@@ -798,7 +766,13 @@ public class Home extends javax.swing.JFrame {
 
         id_proveedor_tf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         id_proveedor_tf.setForeground(new java.awt.Color(51, 51, 51));
+        id_proveedor_tf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         id_proveedor_tf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        id_proveedor_tf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                id_proveedor_tfKeyTyped(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(5, 92, 157));
@@ -807,7 +781,13 @@ public class Home extends javax.swing.JFrame {
 
         cantidad_tf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         cantidad_tf.setForeground(new java.awt.Color(51, 51, 51));
+        cantidad_tf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cantidad_tf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        cantidad_tf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cantidad_tfKeyTyped(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(5, 92, 157));
@@ -816,7 +796,13 @@ public class Home extends javax.swing.JFrame {
 
         precio_tf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         precio_tf.setForeground(new java.awt.Color(51, 51, 51));
+        precio_tf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         precio_tf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        precio_tf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                precio_tfKeyTyped(evt);
+            }
+        });
 
         inventory_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -958,11 +944,6 @@ public class Home extends javax.swing.JFrame {
         user_card.setBackground(new java.awt.Color(255, 255, 255));
 
         combob_buscar1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        combob_buscar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                combob_buscar1ActionPerformed(evt);
-            }
-        });
 
         boton_buscar_usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/search_len.png"))); // NOI18N
         boton_buscar_usuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -1038,7 +1019,23 @@ public class Home extends javax.swing.JFrame {
 
         nombre_tf1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         nombre_tf1.setForeground(new java.awt.Color(51, 51, 51));
+        nombre_tf1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         nombre_tf1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        nombre_tf1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombre_tf1KeyTyped(evt);
+            }
+        });
+
+        pass_pf.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        pass_pf.setForeground(new java.awt.Color(51, 51, 51));
+        pass_pf.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pass_pf.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pass_pf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                pass_pfKeyTyped(evt);
+            }
+        });
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel20.setForeground(new java.awt.Color(5, 92, 157));
@@ -1053,10 +1050,6 @@ public class Home extends javax.swing.JFrame {
         jLabel22.setForeground(new java.awt.Color(5, 92, 157));
         jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("Contraseña");
-
-        contraseña_tf2.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        contraseña_tf2.setForeground(new java.awt.Color(51, 51, 51));
-        contraseña_tf2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         user_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1100,8 +1093,8 @@ public class Home extends javax.swing.JFrame {
                                 .addGap(1, 1, 1)))
                         .addGap(50, 50, 50)
                         .addGroup(user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(contraseña_tf2)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE))
+                            .addComponent(jLabel22, javax.swing.GroupLayout.DEFAULT_SIZE, 324, Short.MAX_VALUE)
+                            .addComponent(pass_pf))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, user_cardLayout.createSequentialGroup()
                         .addComponent(combob_buscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1148,7 +1141,7 @@ public class Home extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jLabel20)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(user_cardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(user_cardLayout.createSequentialGroup()
                         .addComponent(jLabel21)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1156,7 +1149,7 @@ public class Home extends javax.swing.JFrame {
                     .addGroup(user_cardLayout.createSequentialGroup()
                         .addComponent(jLabel22)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(contraseña_tf2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(pass_pf)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(54, Short.MAX_VALUE))
@@ -1180,20 +1173,6 @@ public class Home extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void start_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_start_buttonMouseClicked
-        cl.show(card_panel, "card1");
-    }//GEN-LAST:event_start_buttonMouseClicked
-
-    private void start_buttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_start_buttonMouseEntered
-        start_button.setBackground(true_light_blue);
-        start_button.setForeground(Color.white);
-    }//GEN-LAST:event_start_buttonMouseEntered
-
-    private void start_buttonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_start_buttonMouseExited
-        start_button.setBackground(true_blue);
-        start_button.setForeground(gray);
-    }//GEN-LAST:event_start_buttonMouseExited
 
     private void pos_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pos_buttonMouseClicked
         cl.show(card_panel, "card2");
@@ -1266,7 +1245,12 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_logo_imageMouseExited
 
     private void search_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_search_buttonMouseClicked
-        search_bar_tf.setText("");
+        try {
+            String nombre = combob_buscar2.getSelectedItem().toString();
+            ajustar_modelo_pos(nombre);
+        } catch (Exception e) {
+            System.out.println("error ");
+        }
     }//GEN-LAST:event_search_buttonMouseClicked
 
     private void search_buttonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_search_buttonMouseEntered
@@ -1322,6 +1306,32 @@ public class Home extends javax.swing.JFrame {
 
     private void boton_actualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_actualizarMouseClicked
         // funcion boton actualizar
+        try {
+            Connect bd = new Connect();
+            String nombre = nombre_tf.getText();
+            int id_proveedor = Integer.parseInt(id_proveedor_tf.getText());
+            int cantidad = Integer.parseInt(cantidad_tf.getText());
+            double precio = Double.parseDouble(precio_tf.getText());
+            if (nombre.equals("") || id_proveedor <=0 || id_proveedor <=0 || cantidad <= 0 || precio <= 0) {
+                JOptionPane.showMessageDialog(rootPane, "No dejes datos en blanco");
+            } else {
+                boolean bandera_atualizar = bd.Actualizar_Producto(nombre, id_proveedor, cantidad, precio);
+                if (bandera_atualizar) {
+                    JOptionPane.showMessageDialog(rootPane, "Producto actualizado correctamente");
+                    nombre_tf1.setText("");
+                    id_proveedor_tf.setText("");
+                    cantidad_tf.setText("");
+                    precio_tf.setText("");
+                    ajustar_modelo_general_inventario();
+                    combob_buscar.removeAllItems();
+                    rellenar_combobox_inventario();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "No se puede actualizar un producto intentelo de nuevo");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_boton_actualizarMouseClicked
 
     private void boton_actualizarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_actualizarMouseEntered
@@ -1344,7 +1354,7 @@ public class Home extends javax.swing.JFrame {
             int id_proveedor = Integer.parseInt(id_proveedor_tf.getText());
             int cantidad = Integer.parseInt(cantidad_tf.getText());
             double precio = Double.parseDouble(precio_tf.getText());
-            if (nombre.equals("") || id_proveedor !=0 || id_proveedor <=0 || cantidad <= 0 || precio <= 0) {
+            if (nombre.equals("") || id_proveedor <=0 || id_proveedor <=0 || cantidad <= 0 || precio <= 0) {
                 JOptionPane.showMessageDialog(rootPane, "No dejes datos en blanco");
             } else {
                 boolean bandera_insertar = bd.Ingresar_Producto(nombre, id_proveedor, cantidad, precio);
@@ -1380,6 +1390,32 @@ public class Home extends javax.swing.JFrame {
 
     private void boton_eliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_eliminarMouseClicked
         // funcion boton eliminar
+        try {
+            Connect bd = new Connect();
+            String nombre = nombre_tf.getText();
+            int id_proveedor = Integer.parseInt(id_proveedor_tf.getText());
+            int cantidad = Integer.parseInt(cantidad_tf.getText());
+            double precio = Double.parseDouble(precio_tf.getText());
+            if (nombre.equals("") || id_proveedor <=0 || id_proveedor <=0 || cantidad <= 0 || precio <= 0) {
+                JOptionPane.showMessageDialog(rootPane, "No dejes datos en blanco");
+            } else {
+                boolean bandera_eliminar = bd.Eliminar_Producto(nombre);
+                if (bandera_eliminar) {
+                    JOptionPane.showMessageDialog(rootPane, "Producto borrado correctamente");
+                    nombre_tf.setText("");
+                    id_proveedor_tf.setText("");
+                    cantidad_tf.setText("");
+                    precio_tf.setText("");
+                    ajustar_modelo_general_inventario();
+                    combob_buscar.removeAllItems();
+                    rellenar_combobox_inventario();
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "No se pudo eliminar un producto intentelo de nuevo");
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }//GEN-LAST:event_boton_eliminarMouseClicked
 
     private void boton_eliminarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_boton_eliminarMouseEntered
@@ -1421,16 +1457,17 @@ public class Home extends javax.swing.JFrame {
         try {
             Connect bd = new Connect();
             String nombre = nombre_tf1.getText();
-            String contraseña = contraseña_tf2.getText();
+            String contraseña = String.valueOf(pass_pf.getPassword());
             if (nombre.equals("") || contraseña.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "No dejes datos en blanco");
             } else {
                 int id = bd.Buscar_id(nombre);
+                System.out.println(id);
                 boolean bandera_atualizar = bd.Actualizar_Usuario(nombre, contraseña, id);
                 if (bandera_atualizar) {
                     JOptionPane.showMessageDialog(rootPane, "Usuario actualizado correctamente");
                     nombre_tf1.setText("");
-                    contraseña_tf2.setText("");
+                    pass_pf.setText("");
                     ajustar_modelo_general();
                     combob_buscar1.removeAllItems();
                     rellenar_combobox();
@@ -1460,7 +1497,7 @@ public class Home extends javax.swing.JFrame {
         try {
             Connect bd = new Connect();
             String nombre = nombre_tf1.getText();
-            String contraseña = contraseña_tf2.getText();
+            String contraseña = String.valueOf(pass_pf.getPassword());
             if (nombre.equals("") || contraseña.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "No dejes datos en blanco");
             } else {
@@ -1468,7 +1505,7 @@ public class Home extends javax.swing.JFrame {
                 if (bandera_insertar) {
                     JOptionPane.showMessageDialog(rootPane, "Usuario ingresado correctamente");
                     nombre_tf1.setText("");
-                    contraseña_tf2.setText("");
+                    pass_pf.setText("");
                     ajustar_modelo_general();
                     combob_buscar1.removeAllItems();
                     rellenar_combobox();
@@ -1498,7 +1535,7 @@ public class Home extends javax.swing.JFrame {
         try {
             Connect bd = new Connect();
             String nombre = nombre_tf1.getText();
-            String contraseña = contraseña_tf2.getText();
+            String contraseña = String.valueOf(pass_pf.getPassword());
             if (nombre.equals("") || contraseña.equals("")) {
                 JOptionPane.showMessageDialog(rootPane, "No dejes datos en blanco");
             } else {
@@ -1507,7 +1544,7 @@ public class Home extends javax.swing.JFrame {
                 if (bandera_eliminar) {
                     JOptionPane.showMessageDialog(rootPane, "Usuario borrado correctamente");
                     nombre_tf1.setText("");
-                    contraseña_tf2.setText("");
+                    pass_pf.setText("");
                     ajustar_modelo_general();
                     combob_buscar1.removeAllItems();
                     rellenar_combobox();
@@ -1532,9 +1569,97 @@ public class Home extends javax.swing.JFrame {
         boton_eliminar_usuario.setIcon(lens_png);
     }//GEN-LAST:event_boton_eliminar_usuarioMouseExited
 
-    private void combob_buscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combob_buscar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_combob_buscar1ActionPerformed
+    private void nombre_tfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombre_tfKeyTyped
+        int limiteChar = nombre_tf.getText().length();
+        if(evt.getKeyChar() >= 33 && evt.getKeyChar() <= 39) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() >= 40 && evt.getKeyChar() <= 41) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() == 47) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() >= 58 && evt.getKeyChar() <= 64) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() >= 91 && evt.getKeyChar() <= 96) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() >= 123 & evt.getKeyChar() <= 191) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() >= 256) {
+            evt.consume();
+        }
+        if(limiteChar >= 100) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_nombre_tfKeyTyped
+
+    private void id_proveedor_tfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_id_proveedor_tfKeyTyped
+        int limiteChar = id_proveedor_tf.getText().length();
+        if(!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+        if(limiteChar >= 2) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_id_proveedor_tfKeyTyped
+
+    private void cantidad_tfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cantidad_tfKeyTyped
+        int limiteChar = cantidad_tf.getText().length();
+        if(!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+        if(limiteChar >= 4) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_cantidad_tfKeyTyped
+
+    private void precio_tfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_precio_tfKeyTyped
+        int limiteChar = precio_tf.getText().length();
+        if(!Character.isDigit(evt.getKeyChar())
+                && evt.getKeyChar() != 46)
+        {
+            evt.consume();
+        }
+        if(limiteChar >= 6) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_precio_tfKeyTyped
+
+    private void nombre_tf1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombre_tf1KeyTyped
+        int limiteChar = nombre_tf1.getText().length();
+        if(evt.getKeyChar() >= 32 && evt.getKeyChar() <= 44) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() >= 46 && evt.getKeyChar() <= 47) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() >= 58 && evt.getKeyChar() <= 64) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() >= 91 && evt.getKeyChar() <= 94) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() == 96) {
+            evt.consume();
+        }
+        if(evt.getKeyChar() >= 123) {
+            evt.consume();
+        }
+        if(limiteChar >= 25) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_nombre_tf1KeyTyped
+
+    private void pass_pfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pass_pfKeyTyped
+        int limiteChar = pass_pf.getPassword().length;
+        if(limiteChar >= 50) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_pass_pfKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back_button;
@@ -1552,13 +1677,11 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTable cart_table;
     private javax.swing.JComboBox<String> combob_buscar;
     private javax.swing.JComboBox<String> combob_buscar1;
-    private javax.swing.JTextField contraseña_tf2;
-    private javax.swing.JPanel home_card;
+    private javax.swing.JComboBox<String> combob_buscar2;
     private javax.swing.JTextField id_proveedor_tf;
     private javax.swing.JLabel inventory_button;
     private javax.swing.JPanel inventory_card;
     private javax.swing.JTable inventory_table;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1587,18 +1710,17 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JTextField nombre_tf;
     private javax.swing.JTextField nombre_tf1;
     private javax.swing.JLabel pago_label;
+    private javax.swing.JPasswordField pass_pf;
     private javax.swing.JLabel pos_button;
     private javax.swing.JPanel pos_card;
     private javax.swing.JTextField precio_tf;
     private javax.swing.JLabel qty_add;
     private javax.swing.JTextField qty_bar;
-    private javax.swing.JTextField search_bar_tf;
     private javax.swing.JLabel search_button;
     private javax.swing.JSeparator separator1;
     private javax.swing.JSeparator separator2;
     private javax.swing.JSeparator separator3;
     private javax.swing.JSeparator separator4;
-    private javax.swing.JLabel start_button;
     private javax.swing.JLabel title_label;
     private javax.swing.JLabel title_label1;
     private javax.swing.JLabel title_label2;
