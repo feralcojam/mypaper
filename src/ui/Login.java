@@ -7,6 +7,10 @@ import javax.swing.plaf.basic.BasicButtonUI;
 
 public class Login extends javax.swing.JFrame {
 
+    public static int ID = 0;
+    public static String CARGO = "";
+    public static String NOMBRE = "";
+
     public Login() {
         initComponents();
         user_tf.setOpaque(false);
@@ -18,14 +22,19 @@ public class Login extends javax.swing.JFrame {
         String user = user_tf.getText();
         String pass = String.valueOf(user_pf.getPassword());
         if (!"".equals(user) || !"".equals(pass)) {
-            Connect bd = new Connect();
-            boolean bandera_usuario = bd.Inicio_Sesion(user, pass);
-            if (bandera_usuario == true) {
+            try {
+                Connect bd = new Connect();
+                String INFO_USUARIO[] = new String[3];
+                INFO_USUARIO = bd.Inicio_Sesion(user, pass);
+                ID = Integer.parseInt(INFO_USUARIO[0]);
                 JOptionPane.showMessageDialog(rootPane, "Usuario encontrado");
+                CARGO = INFO_USUARIO[1];
+                NOMBRE = INFO_USUARIO[2];
+                bd.Activar_Usuario(ID);
                 Home home = new Home();
                 home.setVisible(true);
                 this.dispose();
-            } else {
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(rootPane, "Credenciales incorrectas");
             }
         } else {
